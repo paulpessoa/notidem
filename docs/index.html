@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notidem — the opposite of "idem"</title>
+<meta name="description" content="Open-source Chrome extension that helps you write genuine LinkedIn comments and replies in your own voice. You review and post everything. Bring your own AI key.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #15231f;
+    --ink-soft: #3f524c;
+    --ink-faint: #6f817b;
+    --paper: #f4f1e9;
+    --paper-2: #ece7da;
+    --line: #d8d2c4;
+    --accent: #1f6f5c;
+    --accent-deep: #134034;
+    --white: #fbfaf6;
+    --radius: 14px;
+    --display: "Fraunces", Georgia, serif;
+    --body: "Spline Sans", system-ui, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  /* Top bar */
+  header.bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 28px; max-width: 1080px; margin: 0 auto;
+  }
+  .brand { font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -0.01em; }
+  .brand .strike { position: relative; color: var(--ink-faint); }
+  .brand .strike::after {
+    content: ""; position: absolute; left: -2px; right: -2px; top: 52%; height: 2px;
+    background: var(--accent); transform: rotate(-4deg);
+  }
+  .lang {
+    display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden;
+    font-size: 13px; font-weight: 500;
+  }
+  .lang button {
+    background: transparent; border: 0; padding: 6px 14px; cursor: pointer; color: var(--ink-faint);
+    font-family: var(--body); font-weight: 500;
+  }
+  .lang button.on { background: var(--ink); color: var(--paper); }
+
+  /* Hero */
+  .hero { padding: 56px 0 40px; }
+  .eyebrow {
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-deep);
+    font-weight: 600; margin-bottom: 22px;
+  }
+  h1 {
+    font-family: var(--display); font-weight: 500; font-size: clamp(40px, 7vw, 76px);
+    line-height: 1.02; letter-spacing: -0.02em; max-width: 14ch;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede {
+    margin-top: 26px; font-size: clamp(17px, 2.2vw, 20px); color: var(--ink-soft);
+    max-width: 56ch;
+  }
+  .cta-row { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px;
+    padding: 14px 24px; border-radius: 999px; text-decoration: none; border: 1px solid transparent;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: var(--white); }
+  .btn-primary:hover { background: var(--accent-deep); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { background: var(--paper-2); }
+  .note { font-size: 13.5px; color: var(--ink-faint); margin-top: 16px; }
+
+  /* idem visual */
+  .demo {
+    margin-top: 54px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .demo-head {
+    display: flex; align-items: center; gap: 8px; padding: 14px 18px; border-bottom: 1px solid var(--line);
+    background: var(--paper-2);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--line); }
+  .demo-body { padding: 26px 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .col { padding: 6px 22px; }
+  .col:first-child { border-right: 1px solid var(--line); }
+  .col h4 { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px; font-weight: 600; }
+  .bad { font-family: var(--display); font-size: 26px; color: var(--ink-faint); position: relative; display: inline-block; }
+  .bad::after { content: ""; position: absolute; left: -4px; right: -4px; top: 54%; height: 2px; background: #b9483a; transform: rotate(-3deg); }
+  .good { font-size: 16.5px; color: var(--ink); line-height: 1.7; }
+
+  /* Sections */
+  section { padding: 64px 0; border-top: 1px solid var(--line); }
+  .sec-label { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-deep); font-weight: 600; margin-bottom: 16px; }
+  h2 { font-family: var(--display); font-weight: 500; font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.015em; max-width: 18ch; line-height: 1.1; }
+  .sec-intro { margin-top: 18px; color: var(--ink-soft); max-width: 60ch; font-size: 17px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+  .card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; }
+  .card h3 { font-family: var(--display); font-weight: 500; font-size: 21px; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .card p { color: var(--ink-soft); font-size: 15px; }
+
+  .steps { margin-top: 40px; display: grid; gap: 2px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .step { background: var(--white); padding: 22px 26px; display: grid; grid-template-columns: 48px 1fr; gap: 18px; align-items: baseline; }
+  .step + .step { border-top: 1px solid var(--line); }
+  .step .n { font-family: var(--display); font-size: 26px; color: var(--accent); font-weight: 500; }
+  .step h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .step p { color: var(--ink-soft); font-size: 15px; }
+
+  .flow { margin-top: 36px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; }
+  .flow img { width: 100%; height: auto; display: block; }
+  .flow .cap { margin-top: 14px; font-size: 13.5px; color: var(--ink-faint); text-align: center; }
+
+  ul.checks { margin-top: 28px; list-style: none; display: grid; gap: 14px; max-width: 64ch; }
+  ul.checks li { position: relative; padding-left: 30px; color: var(--ink-soft); font-size: 16px; }
+  ul.checks li::before {
+    content: ""; position: absolute; left: 0; top: 9px; width: 14px; height: 8px;
+    border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg);
+  }
+  .caveat { margin-top: 26px; padding: 20px 22px; background: var(--paper-2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; font-size: 15px; color: var(--ink-soft); max-width: 64ch; }
+
+  /* install */
+  .install-box { margin-top: 36px; background: var(--ink); color: var(--paper); border-radius: var(--radius); padding: 36px; }
+  .install-box h2 { color: var(--paper); }
+  .install-box .sec-intro { color: #c4d6cf; }
+  .install-box ol { margin-top: 24px; padding-left: 22px; display: grid; gap: 10px; color: #d6e2dd; font-size: 15.5px; }
+  .install-box code { background: rgba(255,255,255,0.12); padding: 2px 8px; border-radius: 5px; font-size: 13.5px; }
+  .install-box .btn-primary { margin-top: 28px; background: var(--white); color: var(--accent-deep); }
+  .install-box .btn-primary:hover { background: #e9e4d6; }
+  .badge { display: inline-block; margin-bottom: 18px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #aee0d2; border: 1px solid rgba(174,224,210,0.4); padding: 5px 12px; border-radius: 999px; }
+
+  footer { padding: 50px 0 70px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 14px; }
+  footer a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--line); }
+  footer a:hover { color: var(--accent); }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 14px; }
+
+  [data-en], [data-pt] { display: none; }
+  body[data-lang="en"] [data-en] { display: revert; }
+  body[data-lang="pt"] [data-pt] { display: revert; }
+  body[data-lang="en"] h1 [data-en], body[data-lang="pt"] h1 [data-pt] { display: inline; }
+
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; }
+    .demo-body { grid-template-columns: 1fr; }
+    .col:first-child { border-right: 0; border-bottom: 1px solid var(--line); padding-bottom: 22px; margin-bottom: 4px; }
+  }
+</style>
+</head>
+<body data-lang="en">
+
+<header class="bar">
+  <div class="brand">Not<span class="strike">idem</span></div>
+  <div class="lang" role="group" aria-label="Language">
+    <button id="b-en" class="on" onclick="setLang('en')">EN</button>
+    <button id="b-pt" onclick="setLang('pt')">PT</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span data-en>Open-source Chrome extension</span><span data-pt>Extensão Chrome de código aberto</span></div>
+    <h1>
+      <span data-en>The opposite of <em>"idem"</em>.</span>
+      <span data-pt>O oposto de <em>"idem"</em>.</span>
+    </h1>
+    <p class="lede">
+      <span data-en>Notidem helps you write genuine LinkedIn comments and message replies — in your own voice, grounded in your profile, always reviewed by you before anything is posted.</span>
+      <span data-pt>O Notidem ajuda você a escrever comentários e respostas genuínas no LinkedIn — na sua própria voz, com base no seu perfil, e sempre revisados por você antes de publicar.</span>
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#install">
+        <span data-en>Download the extension</span><span data-pt>Baixar a extensão</span>
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/paulpessoa/notidem" target="_blank" rel="noopener">
+        <span data-en>View source on GitHub</span><span data-pt>Ver o código no GitHub</span>
+      </a>
+    </div>
+    <p class="note">
+      <span data-en>Free and open. Bring your own AI key. No account, no tracking, no Notidem server.</span>
+      <span data-pt>Gratuito e aberto. Use sua própria chave de IA. Sem conta, sem rastreamento, sem servidor do Notidem.</span>
+    </p>
+  </div>
+
+  <div class="demo" aria-hidden="false">
+    <div class="demo-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="demo-body">
+      <div class="col">
+        <h4><span data-en>The lazy reply</span><span data-pt>A resposta preguiçosa</span></h4>
+        <span class="bad">idem</span>
+      </div>
+      <div class="col">
+        <h4><span data-en>What Notidem helps you write</span><span data-pt>O que o Notidem ajuda a escrever</span></h4>
+        <p class="good">
+          <span data-en>"The point about hiring for curiosity over credentials lands hard — I made the opposite mistake early on and it cost a whole quarter. How do you screen for it without turning the interview into a trivia quiz?"</span>
+          <span data-pt>"O ponto sobre contratar por curiosidade em vez de diploma é certeiro — cometi o erro oposto no início e custou um trimestre inteiro. Como você avalia isso sem transformar a entrevista num quiz?"</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <section id="features">
+    <div class="sec-label"><span data-en>Why it's different</span><span data-pt>Por que é diferente</span></div>
+    <h2><span data-en>Replies with your essence, not a template</span><span data-pt>Respostas com a sua essência, não um modelo</span></h2>
+    <p class="sec-intro">
+      <span data-en>Relationships don't grow from "great post". They grow from specific, human responses. Notidem lowers the friction of writing those.</span>
+      <span data-pt>Relações não crescem com "ótimo post". Crescem com respostas específicas e humanas. O Notidem reduz o atrito de escrever essas respostas.</span>
+    </p>
+    <div class="grid">
+      <div class="card">
+        <h3><span data-en>Comments</span><span data-pt>Comentários</span></h3>
+        <p><span data-en>Open any post, pick a goal — insight, experience, question, agree, or a respectful counter-point — and get a draft grounded in the post and in you.</span><span data-pt>Abra qualquer post, escolha um objetivo — insight, experiência, pergunta, concordar ou um contraponto respeitoso — e receba um rascunho baseado no post e em você.</span></p>
+      </div>
+      <div class="card">
+        <h3><span data-en>Message replies</span><span data-pt>Respostas em mensagens</span></h3>
+        <p><span data-en>In a conversation, Notidem reads the visible history and helps you reply in context — reply, thank, propose a next step, answer, or politely decline.</span><span data-pt>Numa conversa, o Notidem lê o histórico visível e ajuda a responder no contexto — responder, agradecer, propor um próximo passo, responder ou recusar com educação.</span></p>
+      </div>
+      <div class="card">
+        <h3><span data-en>Your voice</span><span data-pt>Sua voz</span></h3>
+        <p><span data-en>Set up a short profile and optionally your résumé. It colors tone and credibility — and never pastes your CV back into a comment.</span><span data-pt>Crie um perfil curto e, se quiser, anexe seu currículo. Ele dá tom e credibilidade — e nunca cola seu CV de volta no comentário.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="sec-label"><span data-en>How it works</span><span data-pt>Como funciona</span></div>
+    <h2><span data-en>Five steps, and you stay in control</span><span data-pt>Cinco passos, e você no controle</span></h2>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><div><h3><span data-en>Open a post or chat</span><span data-pt>Abra um post ou conversa</span></h3><p><span data-en>The Notidem button appears next to the box.</span><span data-pt>O botão do Notidem aparece ao lado da caixa.</span></p></div></div>
+      <div class="step"><span class="n">2</span><div><h3><span data-en>It reads the visible text</span><span data-pt>Ele lê o texto visível</span></h3><p><span data-en>The post, or the conversation transcript. Nothing hidden, nothing else.</span><span data-pt>O post, ou o histórico da conversa. Nada oculto, nada além disso.</span></p></div></div>
+      <div class="step"><span class="n">3</span><div><h3><span data-en>You pick a goal and generate</span><span data-pt>Você escolhe um objetivo e gera</span></h3><p><span data-en>The draft is built with your profile and your own AI key.</span><span data-pt>O rascunho é montado com seu perfil e sua própria chave de IA.</span></p></div></div>
+      <div class="step"><span class="n">4</span><div><h3><span data-en>You edit it</span><span data-pt>Você edita</span></h3><p><span data-en>Tweak until it sounds like you on a good day.</span><span data-pt>Ajuste até soar como você num bom dia.</span></p></div></div>
+      <div class="step"><span class="n">5</span><div><h3><span data-en>You post it</span><span data-pt>Você publica</span></h3><p><span data-en>Notidem never posts or sends anything on its own.</span><span data-pt>O Notidem nunca publica nem envia nada sozinho.</span></p></div></div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="sec-label"><span data-en>Privacy and security</span><span data-pt>Privacidade e segurança</span></div>
+    <h2><span data-en>Transparent about where your data goes</span><span data-pt>Transparente sobre onde seus dados vão</span></h2>
+    <p class="sec-intro">
+      <span data-en>No Notidem server sits between you and the AI. We never see your key, your text, or your drafts.</span>
+      <span data-pt>Nenhum servidor do Notidem fica entre você e a IA. Nunca vemos sua chave, seu texto ou seus rascunhos.</span>
+    </p>
+    <div class="flow">
+      <img src="assets/data-flow.svg" alt="Notidem end-to-end data flow diagram">
+      <p class="cap"><span data-en>End-to-end data flow. The API key never reaches the LinkedIn page.</span><span data-pt>Fluxo de dados ponta a ponta. A chave de API nunca chega à página do LinkedIn.</span></p>
+    </div>
+    <ul class="checks">
+      <li><span data-en>The API key never touches the LinkedIn page — it lives only in the isolated background worker.</span><span data-pt>A chave de API nunca toca a página do LinkedIn — fica só no worker isolado em segundo plano.</span></li>
+      <li><span data-en>Encrypted at rest with AES-GCM, stored locally, never synced to the cloud.</span><span data-pt>Criptografada em repouso com AES-GCM, armazenada localmente, nunca sincronizada com a nuvem.</span></li>
+      <li><span data-en>Never logged. Sent only to the AI provider you choose.</span><span data-pt>Nunca registrada em log. Enviada apenas ao provedor de IA que você escolher.</span></li>
+      <li><span data-en>One-click erase of keys and all data, anytime.</span><span data-pt>Apague chaves e todos os dados com um clique, quando quiser.</span></li>
+    </ul>
+    <div class="caveat">
+      <span data-en><strong>Honest limit:</strong> no browser extension can fully protect a key against malware already running on your computer — to use a key, it must be decrypted in the browser. Use a scoped key with a low spend limit, and remove it when you're done.</span>
+      <span data-pt><strong>Limite honesto:</strong> nenhuma extensão protege totalmente uma chave contra malware já em execução no seu computador — para usar a chave, ela precisa ser descriptografada no navegador. Use uma chave com escopo e limite de gasto baixo, e remova-a quando terminar.</span>
+    </div>
+  </section>
+
+  <section id="compliance">
+    <div class="sec-label"><span data-en>Compliance</span><span data-pt>Conformidade</span></div>
+    <h2><span data-en>Built to respect LinkedIn and the LGPD</span><span data-pt>Feito para respeitar o LinkedIn e a LGPD</span></h2>
+    <ul class="checks">
+      <li><span data-en>Human in the loop at every step: Notidem drafts, you decide and send. No auto-posting, no mass outreach, no bulk scraping.</span><span data-pt>Humano no controle em cada etapa: o Notidem rascunha, você decide e envia. Sem publicação automática, sem disparo em massa, sem coleta em massa.</span></li>
+      <li><span data-en>Reads only what is already visible on your screen, and only when you ask.</span><span data-pt>Lê apenas o que já está visível na sua tela, e somente quando você pede.</span></li>
+      <li><span data-en>LGPD/GDPR: data is processed locally and transiently, under your consent, with no backend collecting anything.</span><span data-pt>LGPD/GDPR: os dados são processados local e transitoriamente, sob seu consentimento, sem backend coletando nada.</span></li>
+    </ul>
+  </section>
+
+  <section id="install">
+    <div class="install-box">
+      <span class="badge"><span data-en>Pending Chrome Web Store review</span><span data-pt>Em análise na Chrome Web Store</span></span>
+      <h2><span data-en>Install it now</span><span data-pt>Instale agora</span></h2>
+      <p class="sec-intro"><span data-en>Until the store approves it, load the packaged build directly. It takes a minute.</span><span data-pt>Até a loja aprovar, carregue o pacote diretamente. Leva um minuto.</span></p>
+      <ol>
+        <li><span data-en>Download and unzip the latest build.</span><span data-pt>Baixe e descompacte a versão mais recente.</span></li>
+        <li><span data-en>Open </span><span data-pt>Abra </span><code>chrome://extensions</code>.</li>
+        <li><span data-en>Turn on </span><span data-pt>Ative o </span><strong><span data-en>Developer mode</span><span data-pt>Modo de desenvolvedor</span></strong>.</li>
+        <li><span data-en>Click </span><span data-pt>Clique em </span><strong>Load unpacked</strong> <span data-en>and pick the unzipped folder.</span><span data-pt>e selecione a pasta descompactada.</span></li>
+        <li><span data-en>Open Settings, add your AI key and a short profile, then go to LinkedIn.</span><span data-pt>Abra as Configurações, adicione sua chave de IA e um perfil curto, e vá para o LinkedIn.</span></li>
+      </ol>
+      <a class="btn btn-primary" href="notidem-v2.0.zip" download>
+        <span data-en>Download Notidem v2.0</span><span data-pt>Baixar Notidem v2.0</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brand" style="font-size:18px">Not<span class="strike">idem</span></div>
+    <div class="foot-links">
+      <a href="https://github.com/paulpessoa/notidem" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/paulpessoa/notidem/blob/main/docs/PRIVACY.md" target="_blank" rel="noopener"><span data-en>Privacy</span><span data-pt>Privacidade</span></a>
+      <a href="https://github.com/paulpessoa/notidem/blob/main/docs/SECURITY.md" target="_blank" rel="noopener"><span data-en>Security</span><span data-pt>Segurança</span></a>
+      <a href="https://github.com/paulpessoa/notidem/blob/main/docs/ROADMAP.md" target="_blank" rel="noopener"><span data-en>Roadmap</span><span data-pt>Planejamento</span></a>
+      <a href="https://github.com/paulpessoa/notidem/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+    </div>
+    <p style="margin-top:20px">
+      <span data-en>Open source, MIT-licensed. You write the words; Notidem just helps them out.</span>
+      <span data-pt>Código aberto, licença MIT. As palavras são suas; o Notidem só ajuda a tirá-las.</span>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+  function setLang(l) {
+    document.body.setAttribute('data-lang', l);
+    document.documentElement.lang = l;
+    document.getElementById('b-en').classList.toggle('on', l === 'en');
+    document.getElementById('b-pt').classList.toggle('on', l === 'pt');
+    try { localStorage.setItem('notidem-lang', l); } catch (e) {}
+  }
+  (function () {
+    var saved;
+    try { saved = localStorage.getItem('notidem-lang'); } catch (e) {}
+    if (!saved) saved = (navigator.language || 'en').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
+    setLang(saved);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Notidem</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="pp-head">
+    <div class="pp-brand">
+      <img src="../../assets/icons/icon32.png" alt="" width="22" height="22" />
+      <span>Notidem</span>
+    </div>
+    <button class="pp-gear" id="open-options" title="Settings" aria-label="Settings">⚙</button>
+  </header>
+
+  <main class="pp-body">
+    <div class="pp-context" id="context">
+      <span class="pp-context-label">Detecting post…</span>
+    </div>
+
+    <div class="pp-row">
+      <label for="provider">Model</label>
+      <select id="provider" class="pp-select"></select>
+    </div>
+
+    <div class="pp-output" id="output" data-state="idle">
+      <p class="pp-placeholder">Open a LinkedIn post, then generate a draft here.</p>
+    </div>
+
+    <div class="pp-actions">
+      <button class="btn btn-primary pp-generate" id="generate">Generate</button>
+      <button class="btn btn-ghost pp-regen" id="regenerate" disabled>↻</button>
+      <button class="btn btn-go pp-copy" id="copy" disabled>Copy</button>
+    </div>
+    <p class="pp-status" id="status" aria-live="polite"></p>
+  </main>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

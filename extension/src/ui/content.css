@@ -1,0 +1,208 @@
+/* src/ui/content.css — injected into linkedin.com. All selectors prefixed .cc-
+   to avoid clashing with LinkedIn's own styles. System fonts only here, to keep
+   the injected surface lightweight and avoid FOUT on someone else's page. */
+
+.cc-trigger-bar {
+  display: flex;
+  align-items: center;
+  padding: 6px 0 2px;
+  margin-top: 6px;
+  border-top: 1px solid #eef2f7;
+}
+
+.cc-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  font: 600 12.5px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #0a66c2;
+  background: #fff;
+  border: 1.5px solid #0a66c2;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.cc-trigger:hover {
+  background: #0a66c2;
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(10, 102, 194, 0.28);
+}
+.cc-trigger-spark { font-size: 13px; line-height: 1; }
+
+/* ---- Panel ---- */
+
+.cc-panel {
+  position: absolute;
+  z-index: 99999;
+  width: 380px;
+  background: #fff;
+  border: 1px solid #e4e9f0;
+  border-radius: 16px;
+  box-shadow: 0 14px 40px rgba(20, 30, 45, 0.18);
+  font: 400 13px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1b1f24;
+  overflow: hidden;
+  animation: cc-pop 0.16s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@keyframes cc-pop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
+  background: linear-gradient(180deg, #f7faff, #eef4fc);
+  border-bottom: 1px solid #eef2f7;
+}
+.cc-head-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #0a66c2;
+  letter-spacing: -0.01em;
+}
+.cc-spark { font-size: 14px; }
+.cc-close {
+  background: none; border: none; cursor: pointer;
+  font-size: 15px; color: #8a929b; line-height: 1; padding: 2px 4px;
+  border-radius: 6px; transition: background 0.12s, color 0.12s;
+}
+.cc-close:hover { background: #e7edf4; color: #1b1f24; }
+
+.cc-body { padding: 13px 15px; }
+
+.cc-meta { font-size: 12px; color: #4a5159; margin-bottom: 6px; }
+.cc-meta strong { color: #1b1f24; }
+
+.cc-excerpt {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #4a5159;
+  background: #f4f7fb;
+  border: 1px solid #eef2f7;
+  border-radius: 10px;
+  padding: 9px 11px;
+  margin-bottom: 12px;
+  max-height: 64px;
+  overflow: hidden;
+}
+.cc-excerpt-empty { color: #8a929b; font-style: italic; }
+
+.cc-output { min-height: 76px; }
+.cc-hint { font-size: 12.5px; color: #8a929b; text-align: center; padding: 16px 8px; }
+
+.cc-loading {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 12.5px; color: #4a5159; padding: 14px 2px;
+}
+.cc-spinner {
+  width: 15px; height: 15px;
+  border: 2px solid #e4e9f0; border-top-color: #0a66c2;
+  border-radius: 50%; animation: cc-spin 0.65s linear infinite; flex-shrink: 0;
+}
+@keyframes cc-spin { to { transform: rotate(360deg); } }
+
+.cc-textarea {
+  width: 100%;
+  min-height: 104px;
+  font: 400 13px/1.55 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1b1f24;
+  background: #fff;
+  border: 1.5px solid #d6e6f9;
+  border-radius: 10px;
+  padding: 10px 11px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.13s;
+  animation: cc-rise 0.18s ease;
+}
+.cc-textarea:focus { border-color: #0a66c2; }
+@keyframes cc-rise { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+.cc-error {
+  font-size: 12.5px; line-height: 1.5; color: #c2362b;
+  background: #fdf3f2; border: 1px solid #f3d9d6;
+  border-radius: 10px; padding: 10px 12px;
+}
+
+.cc-foot {
+  display: flex; gap: 8px; align-items: center;
+  padding: 0 15px 13px;
+}
+.cc-btn {
+  padding: 7px 15px;
+  font: 600 12.5px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s, border-color 0.14s, transform 0.08s;
+}
+.cc-btn:active { transform: translateY(1px); }
+.cc-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+.cc-generate { background: #0a66c2; color: #fff; border-color: #0a66c2; }
+.cc-generate:not(:disabled):hover { background: #004182; border-color: #004182; }
+.cc-ghost { background: #fff; color: #0a66c2; border-color: #0a66c2; }
+.cc-ghost:not(:disabled):hover { background: #eaf2fc; }
+.cc-primary { background: #057642; color: #fff; border-color: #057642; margin-left: auto; }
+.cc-primary:not(:disabled):hover { background: #046038; border-color: #046038; }
+
+.cc-status {
+  min-height: 18px;
+  padding: 0 15px 11px;
+  font-size: 11px;
+  color: #8a929b;
+}
+.cc-link {
+  background: none; border: none; cursor: pointer;
+  color: #0a66c2; font-size: 12px; font-weight: 600; padding: 0;
+}
+.cc-link:hover { text-decoration: underline; }
+
+/* ---- Pre-configured controls (goal / length / custom instruction) ------- */
+.cc-controls {
+  display: flex;
+  gap: 8px;
+  padding: 0 15px 8px;
+}
+.cc-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.cc-field-label {
+  font: 600 10px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #8a929b;
+}
+.cc-select {
+  width: 100%;
+  padding: 6px 8px;
+  font: 500 12.5px/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1d2226;
+  background: #fff;
+  border: 1.5px solid #d0d5da;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.cc-select:focus { outline: none; border-color: #0a66c2; }
+.cc-custom {
+  width: calc(100% - 30px);
+  margin: 0 15px 10px;
+  padding: 7px 10px;
+  font: 400 12.5px/1.3 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1d2226;
+  background: #fff;
+  border: 1.5px solid #d0d5da;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.cc-custom:focus { outline: none; border-color: #0a66c2; }
+.cc-custom::placeholder { color: #a0a6ad; }

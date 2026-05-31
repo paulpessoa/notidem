@@ -1,0 +1,108 @@
+/* src/ui/tokens.css — shared design system */
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('../../assets/fonts/bricolage-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('../../assets/fonts/bricolage-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Spline Sans';
+  src: url('../../assets/fonts/spline-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Spline Sans';
+  src: url('../../assets/fonts/spline-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+
+:root {
+  /* Brand */
+  --cc-blue: #0a66c2;
+  --cc-blue-dark: #004182;
+  --cc-blue-50: #eaf2fc;
+  --cc-blue-100: #d6e6f9;
+  --cc-green: #057642;
+  --cc-green-dark: #046038;
+  --cc-red: #c2362b;
+  --cc-amber: #b7791f;
+
+  /* Neutrals */
+  --cc-ink: #1b1f24;
+  --cc-ink-soft: #4a5159;
+  --cc-ink-faint: #8a929b;
+  --cc-line: #e4e9f0;
+  --cc-line-soft: #eef2f7;
+  --cc-surface: #ffffff;
+  --cc-canvas: #f4f7fb;
+  --cc-canvas-2: #fafcff;
+
+  /* Type */
+  --cc-font-display: 'Bricolage Grotesque', 'Segoe UI', sans-serif;
+  --cc-font-body: 'Spline Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Radii + shadow */
+  --cc-r-sm: 8px;
+  --cc-r-md: 12px;
+  --cc-r-lg: 16px;
+  --cc-r-pill: 999px;
+  --cc-shadow-sm: 0 1px 3px rgba(20, 30, 45, 0.08);
+  --cc-shadow-md: 0 6px 22px rgba(20, 30, 45, 0.12);
+  --cc-shadow-lg: 0 14px 40px rgba(20, 30, 45, 0.18);
+
+  /* Motion */
+  --cc-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Reusable button base */
+.btn {
+  font-family: var(--cc-font-body);
+  font-weight: 600;
+  border-radius: var(--cc-r-pill);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s var(--cc-ease), color 0.15s var(--cc-ease),
+    border-color 0.15s var(--cc-ease), transform 0.08s var(--cc-ease);
+}
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+
+.btn-primary { background: var(--cc-blue); color: #fff; border-color: var(--cc-blue); }
+.btn-primary:not(:disabled):hover { background: var(--cc-blue-dark); border-color: var(--cc-blue-dark); }
+
+.btn-ghost { background: #fff; color: var(--cc-blue); border-color: var(--cc-blue); }
+.btn-ghost:not(:disabled):hover { background: var(--cc-blue-50); }
+
+.btn-go { background: var(--cc-green); color: #fff; border-color: var(--cc-green); }
+.btn-go:not(:disabled):hover { background: var(--cc-green-dark); border-color: var(--cc-green-dark); }
+
+.btn-danger { background: #fff; color: var(--cc-red); border-color: #f0d4d1; }
+.btn-danger:hover { background: #fdf3f2; border-color: var(--cc-red); }
+
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 15px; height: 15px;
+  border: 2px solid var(--cc-line);
+  border-top-color: var(--cc-blue);
+  border-radius: 50%;
+  animation: cc-spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes cc-spin { to { transform: rotate(360deg); } }
+
+@keyframes cc-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
