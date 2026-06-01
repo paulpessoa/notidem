@@ -47,6 +47,20 @@ Full details: [`docs/PRIVACY.md`](docs/PRIVACY.md) · [`docs/SECURITY.md`](docs/
 
 ---
 
+## Responsible use
+
+Notidem is an assistant, not a bot. LinkedIn's terms prohibit automation, bulk scraping, and mass outreach — and so does Notidem, by design.
+
+- **You are always in the loop.** Notidem only drafts. You read, edit, and send every message and comment yourself. There is no auto-post, no auto-send, no queue, and no "reply to all".
+- **It reads only what is already on your screen,** and only when you click Generate. It does not crawl profiles, harvest connections, or collect anyone else's data.
+- **No rate-limit evasion.** Notidem does not simulate typing, randomize timing, or take any action designed to disguise automated behavior, because it performs no automated behavior.
+- **Use it at a human pace.** Treat it like a writing aid (a spell-checker or a "rewrite" helper), not a growth tool. Quality replies, not volume.
+- **"For LinkedIn", not "from LinkedIn".** Notidem is an independent, unofficial tool. It is not affiliated with, endorsed by, or connected to LinkedIn, and does not use LinkedIn's trademarks to imply otherwise.
+
+Notidem is not affiliated with LinkedIn. "LinkedIn" is a trademark of its respective owner. Use of any third-party platform is subject to that platform's own terms; you are responsible for your own use. This project is provided as-is, without warranty (see [`LICENSE`](LICENSE)).
+
+---
+
 ## Install
 
 Notidem is pending review on the Chrome Web Store. Until then, you can install the packaged build directly:
