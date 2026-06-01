@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notidem — Support</title>
+<meta name="description" content="Help and support for Notidem: how to install, troubleshoot, manage your API key, and report issues.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #15231f; --ink-soft: #3f524c; --ink-faint: #6f817b;
+    --paper: #f4f1e9; --paper-2: #ece7da; --line: #d8d2c4;
+    --accent: #1f6f5c; --accent-deep: #134034; --gold: #b8901f; --white: #fbfaf6;
+    --radius: 14px; --display: "Fraunces", Georgia, serif; --body: "Spline Sans", system-ui, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--body); background: var(--paper); color: var(--ink); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 28px; }
+  header.bar { display: flex; align-items: center; justify-content: space-between; padding: 22px 28px; max-width: 780px; margin: 0 auto; }
+  .brand { font-family: var(--display); font-weight: 600; font-size: 21px; letter-spacing: -0.01em; text-decoration: none; color: var(--ink); }
+  .brand .strike { position: relative; color: var(--ink-faint); }
+  .brand .strike::after { content: ""; position: absolute; left: -2px; right: -2px; top: 52%; height: 2px; background: var(--accent); transform: rotate(-4deg); }
+  .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; font-size: 13px; font-weight: 500; }
+  .lang button { background: transparent; border: 0; padding: 6px 14px; cursor: pointer; color: var(--ink-faint); font-family: var(--body); font-weight: 500; }
+  .lang button.on { background: var(--ink); color: var(--paper); }
+
+  .hero { padding: 40px 0 30px; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-deep); font-weight: 600; margin-bottom: 16px; }
+  h1 { font-family: var(--display); font-weight: 500; font-size: clamp(34px, 6vw, 50px); line-height: 1.05; letter-spacing: -0.02em; }
+  .lede { margin-top: 18px; font-size: 18px; color: var(--ink-soft); max-width: 60ch; }
+
+  .quick { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .quick a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 9px 18px; transition: background .15s; }
+  .quick a:hover { background: var(--paper-2); }
+
+  section { padding: 40px 0; border-top: 1px solid var(--line); }
+  h2 { font-family: var(--display); font-weight: 500; font-size: clamp(24px, 4vw, 32px); letter-spacing: -0.015em; margin-bottom: 8px; }
+  .sec-sub { color: var(--ink-soft); margin-bottom: 24px; }
+
+  .faq { display: grid; gap: 14px; }
+  details { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  summary { cursor: pointer; padding: 18px 22px; font-weight: 600; font-size: 16.5px; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-family: var(--display); font-size: 24px; color: var(--gold); line-height: 1; transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  .answer { padding: 0 22px 20px; color: var(--ink-soft); font-size: 15.5px; }
+  .answer p { margin-bottom: 10px; }
+  .answer code { background: var(--paper-2); padding: 2px 7px; border-radius: 5px; font-size: 13.5px; }
+  .answer strong { color: var(--ink); }
+
+  .contact { background: var(--ink); color: var(--paper); border-radius: var(--radius); padding: 34px; }
+  .contact h2 { color: var(--paper); }
+  .contact p { color: #cfe0d9; margin-bottom: 22px; max-width: 56ch; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; padding: 13px 24px; border-radius: 999px; text-decoration: none; transition: transform .15s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-gold { background: linear-gradient(180deg, #e3bd5b, #caa23e); color: #2a2008; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn-ghost { background: transparent; color: var(--paper); border: 1.5px solid rgba(207,224,217,0.4); }
+
+  footer { padding: 40px 0 70px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 14px; }
+  footer a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--line); }
+  footer a:hover { color: var(--accent); }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 14px; }
+
+  [data-en], [data-pt] { display: none; }
+  body[data-lang="en"] [data-en] { display: revert; }
+  body[data-lang="pt"] [data-pt] { display: revert; }
+</style>
+</head>
+<body data-lang="en">
+
+<header class="bar">
+  <a class="brand" href="index.html">Not<span class="strike">idem</span></a>
+  <div class="lang" role="group" aria-label="Language">
+    <button id="b-en" class="on" onclick="setLang('en')">EN</button>
+    <button id="b-pt" onclick="setLang('pt')">PT</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span data-en>Support</span><span data-pt>Suporte</span></div>
+    <h1><span data-en>How can we help?</span><span data-pt>Como podemos ajudar?</span></h1>
+    <p class="lede">
+      <span data-en>Answers to common questions about installing, using, and troubleshooting Notidem. If you don't find what you need, reach out below.</span>
+      <span data-pt>Respostas para dúvidas comuns sobre instalar, usar e resolver problemas no Notidem. Se não encontrar o que precisa, fale com a gente abaixo.</span>
+    </p>
+    <div class="quick">
+      <a href="#install"><span data-en>Install</span><span data-pt>Instalação</span></a>
+      <a href="#keys"><span data-en>API keys</span><span data-pt>Chaves de API</span></a>
+      <a href="#trouble"><span data-en>Troubleshooting</span><span data-pt>Problemas</span></a>
+      <a href="#privacy"><span data-en>Privacy</span><span data-pt>Privacidade</span></a>
+      <a href="#contact"><span data-en>Contact</span><span data-pt>Contato</span></a>
+    </div>
+  </div>
+
+  <section id="install">
+    <h2><span data-en>Installing Notidem</span><span data-pt>Instalando o Notidem</span></h2>
+    <div class="faq">
+      <details open>
+        <summary><span data-en>How do I install it before it's on the Chrome Web Store?</span><span data-pt>Como instalo antes de estar na Chrome Web Store?</span></summary>
+        <div class="answer">
+          <p><span data-en>Download the latest build from the project page, unzip it, open <code>chrome://extensions</code>, turn on <strong>Developer mode</strong> (top-right), click <strong>Load unpacked</strong>, and select the unzipped folder.</span><span data-pt>Baixe a versão mais recente na página do projeto, descompacte, abra <code>chrome://extensions</code>, ative o <strong>Modo de desenvolvedor</strong> (canto superior direito), clique em <strong>Load unpacked</strong> e selecione a pasta descompactada.</span></p>
+        </div>
+      </details>
+      <details>
+        <summary><span data-en>Which browsers are supported?</span><span data-pt>Quais navegadores são suportados?</span></summary>
+        <div class="answer">
+          <p><span data-en>Notidem is built for Chrome (Manifest V3) and works on Chromium-based browsers such as Edge, Brave, and Arc.</span><span data-pt>O Notidem é feito para o Chrome (Manifest V3) e funciona em navegadores baseados em Chromium, como Edge, Brave e Arc.</span></p>
+        </div>
+      </details>
+      <details>
+        <summary><span data-en>It installed, but I don't see the button on LinkedIn.</span><span data-pt>Instalei, mas não vejo o botão no LinkedIn.</span></summary>
+        <div class="answer">
+          <p><span data-en>Refresh the LinkedIn tab after installing. Then open a post (so the comment box is visible) or a conversation. The Notidem button appears next to the box. If it still doesn't show, see Troubleshooting below.</span><span data-pt>Atualize a aba do LinkedIn após instalar. Depois abra um post (para a caixa de comentário aparecer) ou uma conversa. O botão do Notidem aparece ao lado da caixa. Se mesmo assim não aparecer, veja Problemas abaixo.</span></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="keys">
+    <h2><span data-en>API keys and providers</span><span data-pt>Chaves de API e provedores</span></h2>
+    <div class="faq">
+      <details>
+        <summary><span data-en>Why do I need my own API key?</span><span data-pt>Por que preciso da minha própria chave de API?</span></summary>
+        <div class="answer">
+          <p><span data-en>Notidem runs on your own AI provider account, so you stay in full control of usage and cost, and your text is never routed through any Notidem server. You add the key once in Settings.</span><span data-pt>O Notidem usa a sua própria conta de provedor de IA, então você mantém controle total de uso e custo, e seu texto nunca passa por nenhum servidor do Notidem. Você adiciona a chave uma vez nas Configurações.</span></p>
+        </div>
+      </details>
+      <details>
+        <summary><span data-en>Which providers can I use?</span><span data-pt>Quais provedores posso usar?</span></summary>
+        <div class="answer">
+          <p><span data-en>OpenAI, Anthropic, Google Gemini, and Groq. Pick one in Settings and paste its key.</span><span data-pt>OpenAI, Anthropic, Google Gemini e Groq. Escolha um nas Configurações e cole a chave.</span></p>
+        </div>
+      </details>
+      <details>
+        <summary><span data-en>Is my key safe?</span><span data-pt>Minha chave está segura?</span></summary>
+        <div class="answer">
+          <p><span data-en>Your key is encrypted on your device (AES-GCM), stored only locally, never synced to the cloud, and never logged. It is sent only to the provider you choose, and never touches the LinkedIn page.</span><span data-pt>Sua chave é criptografada no seu dispositivo (AES-GCM), armazenada apenas localmente, nunca sincronizada com a nuvem e nunca registrada em log. É enviada apenas ao provedor que você escolher e nunca toca a página do LinkedIn.</span></p>
+          <p><span data-en>Honest limit: no extension can fully protect a key from malware already on your computer. Use a scoped key with a low spend limit, and remove it when done with "Forget my keys".</span><span data-pt>Limite honesto: nenhuma extensão protege totalmente uma chave contra malware já presente no seu computador. Use uma chave com escopo e limite de gasto baixo, e remova-a ao terminar com "Forget my keys".</span></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="trouble">
+    <h2><span data-en>Troubleshooting</span><span data-pt>Solução de problemas</span></h2>
+    <div class="faq">
+      <details>
+        <summary><span data-en>The draft came out generic or empty.</span><span data-pt>O rascunho saiu genérico ou vazio.</span></summary>
+        <div class="answer">
+          <p><span data-en>Make sure the post is fully visible (expand "see more" if needed). If detection fails, select the post or conversation text with your mouse and click Generate again — Notidem will use your selection.</span><span data-pt>Garanta que o post está totalmente visível (expanda o "ver mais" se preciso). Se a detecção falhar, selecione o texto do post ou da conversa com o mouse e clique em Generate de novo — o Notidem usará a sua seleção.</span></p>
+        </div>
+      </details>
+      <details>
+        <summary><span data-en>It says my profile is empty.</span><span data-pt>Diz que meu perfil está vazio.</span></summary>
+        <div class="answer">
+          <p><span data-en>Open Settings and add a few sentences about yourself (and optionally your résumé). Notidem needs this to write in your voice.</span><span data-pt>Abra as Configurações e adicione algumas frases sobre você (e, se quiser, seu currículo). O Notidem precisa disso para escrever na sua voz.</span></p>
+        </div>
+      </details>
+      <details>
+        <summary><span data-en>Nothing happens when I click Generate.</span><span data-pt>Nada acontece quando clico em Generate.</span></summary>
+        <div class="answer">
+          <p><span data-en>Check that you selected a provider and saved a valid key in Settings. If the provider rejects the key, you'll see an error message. Confirm the key is active and has available quota on the provider's side.</span><span data-pt>Verifique se você selecionou um provedor e salvou uma chave válida nas Configurações. Se o provedor recusar a chave, você verá uma mensagem de erro. Confirme que a chave está ativa e com cota disponível no lado do provedor.</span></p>
+        </div>
+      </details>
+      <details>
+        <summary><span data-en>The button disappeared after a LinkedIn update.</span><span data-pt>O botão sumiu após uma atualização do LinkedIn.</span></summary>
+        <div class="answer">
+          <p><span data-en>LinkedIn changes its page structure from time to time. Notidem is built to adapt, but if something breaks, please report it (see Contact) with a short description, and use the mouse-selection fallback in the meantime.</span><span data-pt>O LinkedIn muda a estrutura da página de tempos em tempos. O Notidem é feito para se adaptar, mas se algo quebrar, por favor reporte (veja Contato) com uma breve descrição, e use o recurso de seleção com o mouse enquanto isso.</span></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <h2><span data-en>Privacy and data</span><span data-pt>Privacidade e dados</span></h2>
+    <div class="faq">
+      <details>
+        <summary><span data-en>What data does Notidem collect?</span><span data-pt>Quais dados o Notidem coleta?</span></summary>
+        <div class="answer">
+          <p><span data-en>None on any server — there is no Notidem backend. Your profile, key, and draft history live only in your browser. The text you reply to is sent only to your chosen AI provider, only when you click Generate. Full details on the privacy page.</span><span data-pt>Nenhum em servidor — não há backend do Notidem. Seu perfil, chave e histórico ficam apenas no seu navegador. O texto ao qual você responde é enviado somente ao provedor de IA escolhido, e somente quando você clica em Generate. Detalhes completos na página de privacidade.</span></p>
+          <p><a class="brand" style="font-size:15px;border-bottom:1px solid var(--line)" href="privacy.html"><span data-en>Read the full Privacy Policy</span><span data-pt>Leia a Política de Privacidade completa</span></a></p>
+        </div>
+      </details>
+      <details>
+        <summary><span data-en>How do I delete my data?</span><span data-pt>Como apago meus dados?</span></summary>
+        <div class="answer">
+          <p><span data-en>In Settings, use "Forget my keys" to remove keys, or "Clear all data" to erase everything — profile, keys, preferences, and history. Removing the extension also clears its local storage.</span><span data-pt>Nas Configurações, use "Forget my keys" para remover chaves, ou "Clear all data" para apagar tudo — perfil, chaves, preferências e histórico. Remover a extensão também limpa o armazenamento local dela.</span></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <h2><span data-en>Still need help?</span><span data-pt>Ainda precisa de ajuda?</span></h2>
+      <p><span data-en>Report a bug, request a feature, or ask a question on GitHub. It's the fastest way to reach the project and lets others benefit from the answer.</span><span data-pt>Reporte um bug, peça uma funcionalidade ou tire uma dúvida no GitHub. É a forma mais rápida de falar com o projeto e permite que outras pessoas se beneficiem da resposta.</span></p>
+      <div class="btn-row">
+        <a class="btn btn-gold" href="https://github.com/paulpessoa/notidem/issues" target="_blank" rel="noopener"><span data-en>Open an issue on GitHub</span><span data-pt>Abrir uma issue no GitHub</span></a>
+        <a class="btn btn-ghost" href="https://github.com/paulpessoa/notidem" target="_blank" rel="noopener"><span data-en>View the repository</span><span data-pt>Ver o repositório</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a class="brand" style="font-size:18px" href="index.html">Not<span class="strike">idem</span></a>
+    <div class="foot-links">
+      <a href="index.html"><span data-en>Home</span><span data-pt>Início</span></a>
+      <a href="privacy.html"><span data-en>Privacy</span><span data-pt>Privacidade</span></a>
+      <a href="https://github.com/paulpessoa/notidem" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  function setLang(l) {
+    document.body.setAttribute('data-lang', l);
+    document.documentElement.lang = l;
+    document.getElementById('b-en').classList.toggle('on', l === 'en');
+    document.getElementById('b-pt').classList.toggle('on', l === 'pt');
+    try { localStorage.setItem('notidem-lang', l); } catch (e) {}
+  }
+  (function () {
+    var saved;
+    try { saved = localStorage.getItem('notidem-lang'); } catch (e) {}
+    if (!saved) saved = (navigator.language || 'en').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
+    setLang(saved);
+  })();
+</script>
+</body>
+</html>

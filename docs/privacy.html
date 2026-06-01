@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notidem — Privacy Policy</title>
+<meta name="description" content="Notidem's privacy policy: no backend, local-only storage, your data sent only to the AI provider you choose. LGPD and GDPR aligned.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #15231f; --ink-soft: #3f524c; --ink-faint: #6f817b;
+    --paper: #f4f1e9; --paper-2: #ece7da; --line: #d8d2c4;
+    --accent: #1f6f5c; --accent-deep: #134034; --gold: #b8901f; --white: #fbfaf6;
+    --radius: 14px; --display: "Fraunces", Georgia, serif; --body: "Spline Sans", system-ui, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--body); background: var(--paper); color: var(--ink); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+  header.bar { display: flex; align-items: center; justify-content: space-between; padding: 22px 28px; max-width: 760px; margin: 0 auto; }
+  .brand { font-family: var(--display); font-weight: 600; font-size: 21px; letter-spacing: -0.01em; text-decoration: none; color: var(--ink); }
+  .brand .strike { position: relative; color: var(--ink-faint); }
+  .brand .strike::after { content: ""; position: absolute; left: -2px; right: -2px; top: 52%; height: 2px; background: var(--accent); transform: rotate(-4deg); }
+  .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; font-size: 13px; font-weight: 500; }
+  .lang button { background: transparent; border: 0; padding: 6px 14px; cursor: pointer; color: var(--ink-faint); font-family: var(--body); font-weight: 500; }
+  .lang button.on { background: var(--ink); color: var(--paper); }
+
+  .hero { padding: 40px 0 8px; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-deep); font-weight: 600; margin-bottom: 16px; }
+  h1 { font-family: var(--display); font-weight: 500; font-size: clamp(34px, 6vw, 50px); line-height: 1.05; letter-spacing: -0.02em; }
+  .updated { margin-top: 14px; font-size: 14px; color: var(--ink-faint); }
+
+  section { padding: 34px 0; border-top: 1px solid var(--line); margin-top: 24px; }
+  section:first-of-type { border-top: none; margin-top: 8px; }
+  h2 { font-family: var(--display); font-weight: 500; font-size: clamp(22px, 3.5vw, 28px); letter-spacing: -0.015em; margin-bottom: 14px; }
+  h3 { font-size: 17px; font-weight: 600; margin: 18px 0 6px; }
+  p { color: var(--ink-soft); margin-bottom: 12px; }
+  p strong, li strong { color: var(--ink); font-weight: 600; }
+  ul { margin: 0 0 12px; padding-left: 22px; }
+  li { color: var(--ink-soft); margin-bottom: 8px; }
+  .lead { font-size: 18px; color: var(--ink); }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; font-size: 14.5px; }
+  th, td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--paper-2); font-weight: 600; color: var(--ink); font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+  tr:last-child td { border-bottom: none; }
+  td { color: var(--ink-soft); }
+
+  .callout { background: var(--white); border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0; padding: 18px 20px; margin: 16px 0; }
+  .callout p { margin: 0; font-size: 15px; }
+  code { background: var(--paper-2); padding: 2px 7px; border-radius: 5px; font-size: 13.5px; }
+
+  footer { padding: 40px 0 70px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 14px; margin-top: 24px; }
+  footer a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--line); }
+  footer a:hover { color: var(--accent); }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 14px; }
+
+  [data-en], [data-pt] { display: none; }
+  body[data-lang="en"] [data-en] { display: revert; }
+  body[data-lang="pt"] [data-pt] { display: revert; }
+  body[data-lang="en"] td [data-en], body[data-lang="pt"] td [data-pt] { display: revert; }
+</style>
+</head>
+<body data-lang="en">
+
+<header class="bar">
+  <a class="brand" href="index.html">Not<span class="strike">idem</span></a>
+  <div class="lang" role="group" aria-label="Language">
+    <button id="b-en" class="on" onclick="setLang('en')">EN</button>
+    <button id="b-pt" onclick="setLang('pt')">PT</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span data-en>Privacy Policy</span><span data-pt>Política de Privacidade</span></div>
+    <h1><span data-en>Your data stays with you</span><span data-pt>Seus dados ficam com você</span></h1>
+    <p class="updated"><span data-en>Last updated: 2026</span><span data-pt>Última atualização: 2026</span></p>
+  </div>
+
+  <section>
+    <h2><span data-en>Summary</span><span data-pt>Resumo</span></h2>
+    <ul>
+      <li><span data-en>There is <strong>no Notidem server</strong>. We do not run a backend that receives your data.</span><span data-pt>Não existe <strong>servidor do Notidem</strong>. Não operamos backend que receba seus dados.</span></li>
+      <li><span data-en>Your API key, profile, and draft history are stored <strong>only on your device</strong>, in the browser's local storage.</span><span data-pt>Sua chave de API, perfil e histórico de rascunhos ficam <strong>apenas no seu dispositivo</strong>, no armazenamento local do navegador.</span></li>
+      <li><span data-en>When you click Generate, the text you reply to is sent <strong>directly to the AI provider you chose</strong>, using your own key, over HTTPS.</span><span data-pt>Ao clicar em Generate, o texto ao qual você responde é enviado <strong>diretamente ao provedor de IA escolhido</strong>, usando sua própria chave, via HTTPS.</span></li>
+      <li><span data-en>We never see, collect, transmit, or store your key, your text, your drafts, or your LinkedIn data.</span><span data-pt>Nunca vemos, coletamos, transmitimos ou armazenamos sua chave, seu texto, seus rascunhos ou seus dados do LinkedIn.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span data-en>What data is involved</span><span data-pt>Quais dados estão envolvidos</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span data-en>Data</span><span data-pt>Dado</span></th>
+          <th><span data-en>Where it lives</span><span data-pt>Onde fica</span></th>
+          <th><span data-en>When it leaves</span><span data-pt>Quando sai</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span data-en>AI provider API key</span><span data-pt>Chave de API do provedor</span></td>
+          <td><span data-en>Local storage, encrypted (AES-GCM)</span><span data-pt>Armazenamento local, criptografada (AES-GCM)</span></td>
+          <td><span data-en>Only inside the request to the provider</span><span data-pt>Apenas dentro da requisição ao provedor</span></td>
+        </tr>
+        <tr>
+          <td><span data-en>Your profile / résumé text</span><span data-pt>Seu perfil / texto do currículo</span></td>
+          <td><span data-en>Local storage</span><span data-pt>Armazenamento local</span></td>
+          <td><span data-en>Only as context in a generation request</span><span data-pt>Apenas como contexto numa requisição</span></td>
+        </tr>
+        <tr>
+          <td><span data-en>Post text or conversation</span><span data-pt>Texto do post ou conversa</span></td>
+          <td><span data-en>Read transiently from the page</span><span data-pt>Lido transitoriamente da página</span></td>
+          <td><span data-en>Only inside a generation request</span><span data-pt>Apenas dentro de uma requisição</span></td>
+        </tr>
+        <tr>
+          <td><span data-en>Draft history</span><span data-pt>Histórico de rascunhos</span></td>
+          <td><span data-en>Local storage</span><span data-pt>Armazenamento local</span></td>
+          <td><span data-en>Never</span><span data-pt>Nunca</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span data-en>Legal basis (LGPD / GDPR)</span><span data-pt>Base legal (LGPD / GDPR)</span></h2>
+    <p><span data-en>Notidem processes personal data locally and transiently for one purpose: to help you draft a reply you have asked for.</span><span data-pt>O Notidem processa dados pessoais de forma local e transitória com um único objetivo: ajudar você a redigir uma resposta que você solicitou.</span></p>
+    <ul>
+      <li><span data-en><strong>Lawful basis:</strong> your consent, exercised explicitly each time you click Generate.</span><span data-pt><strong>Base legal:</strong> seu consentimento, exercido explicitamente cada vez que você clica em Generate.</span></li>
+      <li><span data-en><strong>Controller:</strong> you. There is no Notidem-operated controller, because no Notidem server receives the data.</span><span data-pt><strong>Controlador:</strong> você. Não há controlador operado pelo Notidem, pois nenhum servidor do Notidem recebe os dados.</span></li>
+      <li><span data-en><strong>Processor:</strong> the AI provider you select acts as a processor for that single request, under their own terms.</span><span data-pt><strong>Operador:</strong> o provedor de IA que você seleciona atua como operador para aquela requisição, sob os termos dele.</span></li>
+      <li><span data-en><strong>Data minimization:</strong> Notidem reads only the text visible on the screen for the reply you are writing, and only when you ask.</span><span data-pt><strong>Minimização:</strong> o Notidem lê apenas o texto visível na tela para a resposta que você está escrevendo, e somente quando você pede.</span></li>
+      <li><span data-en><strong>Retention:</strong> local only, under your control. Draft history is capped and can be cleared anytime.</span><span data-pt><strong>Retenção:</strong> apenas local, sob seu controle. O histórico é limitado e pode ser apagado a qualquer momento.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span data-en>Your rights</span><span data-pt>Seus direitos</span></h2>
+    <p><span data-en>Because all data is local and under your control, you can exercise your rights directly:</span><span data-pt>Como todos os dados são locais e estão sob seu controle, você exerce seus direitos diretamente:</span></p>
+    <ul>
+      <li><span data-en><strong>Access / portability:</strong> your data is in your browser's local storage.</span><span data-pt><strong>Acesso / portabilidade:</strong> seus dados estão no armazenamento local do navegador.</span></li>
+      <li><span data-en><strong>Erasure:</strong> use "Forget my keys" to remove keys, or "Clear all data" to remove everything.</span><span data-pt><strong>Exclusão:</strong> use "Forget my keys" para remover chaves, ou "Clear all data" para remover tudo.</span></li>
+      <li><span data-en><strong>Withdraw consent:</strong> stop using Generate, or remove the extension.</span><span data-pt><strong>Retirar consentimento:</strong> pare de usar o Generate, ou remova a extensão.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span data-en>Third-party providers</span><span data-pt>Provedores de terceiros</span></h2>
+    <p><span data-en>When you generate a draft, your text is sent to the AI provider you configured (OpenAI, Anthropic, Google Gemini, or Groq). Each provider has its own privacy policy and data-handling terms, which govern that request. Review the policy of whichever provider you use.</span><span data-pt>Ao gerar um rascunho, seu texto é enviado ao provedor de IA configurado (OpenAI, Anthropic, Google Gemini ou Groq). Cada provedor tem sua própria política de privacidade e termos de tratamento de dados, que regem aquela requisição. Revise a política do provedor que você usar.</span></p>
+  </section>
+
+  <section>
+    <h2><span data-en>Contact</span><span data-pt>Contato</span></h2>
+    <p><span data-en>For privacy questions, open an issue on the project repository.</span><span data-pt>Para dúvidas sobre privacidade, abra uma issue no repositório do projeto.</span></p>
+    <div class="callout">
+      <p><span data-en>Notidem is an independent, unofficial project and is not affiliated with or endorsed by LinkedIn. "LinkedIn" is a trademark of its respective owner.</span><span data-pt>O Notidem é um projeto independente e não oficial, sem vínculo com o LinkedIn nem endosso dele. "LinkedIn" é marca registrada de seu respectivo dono.</span></p>
+    </div>
+  </section>
+
+  <footer>
+    <a class="brand" style="font-size:18px" href="index.html">Not<span class="strike">idem</span></a>
+    <div class="foot-links">
+      <a href="index.html"><span data-en>Home</span><span data-pt>Início</span></a>
+      <a href="support.html"><span data-en>Support</span><span data-pt>Suporte</span></a>
+      <a href="https://github.com/paulpessoa/notidem" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  function setLang(l) {
+    document.body.setAttribute('data-lang', l);
+    document.documentElement.lang = l;
+    document.getElementById('b-en').classList.toggle('on', l === 'en');
+    document.getElementById('b-pt').classList.toggle('on', l === 'pt');
+    try { localStorage.setItem('notidem-lang', l); } catch (e) {}
+  }
+  (function () {
+    var saved;
+    try { saved = localStorage.getItem('notidem-lang'); } catch (e) {}
+    if (!saved) saved = (navigator.language || 'en').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
+    setLang(saved);
+  })();
+</script>
+</body>
+</html>
