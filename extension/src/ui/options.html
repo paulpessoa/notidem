@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="tokens.css" />
   <link rel="stylesheet" href="options.css" />
 </head>
+
 <body>
   <div class="shell">
     <header class="masthead">
@@ -33,7 +35,8 @@
           <h2>Resume</h2>
           <span class="chip" id="pdf-chip" hidden></span>
         </div>
-        <p class="muted">Upload a PDF. Text is extracted on your device and stored locally — it never leaves your browser except as part of a prompt to the AI provider you choose.</p>
+        <p class="muted">Upload a PDF. Text is extracted on your device and stored locally — it never leaves your
+          browser except as part of a prompt to the AI provider you choose.</p>
 
         <label class="dropzone" id="dropzone">
           <input type="file" id="pdf-input" accept="application/pdf" hidden />
@@ -45,7 +48,9 @@
       </div>
 
       <div class="card">
-        <div class="card-head"><h2>About you</h2></div>
+        <div class="card-head">
+          <h2>About you</h2>
+        </div>
         <p class="muted">What should the AI know when writing as you? Role, focus, current projects, values.</p>
         <textarea id="about" class="field" rows="5"
           placeholder="e.g. Frontend developer, 6+ years in React and TypeScript. I build SaaS tools and care about clean DX. Currently into AI-assisted workflows and open source."></textarea>
@@ -62,8 +67,11 @@
     <!-- KEYS --------------------------------------------------------------- -->
     <section class="panel" id="panel-keys">
       <div class="card">
-        <div class="card-head"><h2>API keys</h2></div>
-        <p class="muted">Bring your own key. Stored locally and sent directly to each provider — never to us or any third party. <a href="#" id="why-keys" class="inline-link">Where do I get a key?</a></p>
+        <div class="card-head">
+          <h2>API keys</h2>
+        </div>
+        <p class="muted">Bring your own key. Stored locally and sent directly to each provider — never to us or any
+          third party. <a href="#" id="why-keys" class="inline-link">Where do I get a key?</a></p>
         <div id="keys-list" class="keys-list"></div>
         <div class="security-note">
           <strong>How your keys are protected</strong>
@@ -73,7 +81,9 @@
             <li>Sent straight to the AI provider you choose; they never pass through our servers.</li>
             <li>Never written to logs or the console.</li>
           </ul>
-          <p class="security-fineprint">No browser extension can fully protect a key against malware already running on your computer — to use a key, it must be decrypted in the browser. For maximum safety, use a scoped key with a low spend limit, and remove it when you're done.</p>
+          <p class="security-fineprint">No browser extension can fully protect a key against malware already running on
+            your computer — to use a key, it must be decrypted in the browser. For maximum safety, use a scoped key with
+            a low spend limit, and remove it when you're done.</p>
         </div>
       </div>
       <div class="key-actions">
@@ -86,13 +96,17 @@
     <!-- PREFS -------------------------------------------------------------- -->
     <section class="panel" id="panel-prefs">
       <div class="card">
-        <div class="card-head"><h2>Default provider</h2></div>
+        <div class="card-head">
+          <h2>Default provider</h2>
+        </div>
         <p class="muted">Which model writes your comments. You can switch any time.</p>
         <div class="pills" id="provider-pills"></div>
       </div>
 
       <div class="card">
-        <div class="card-head"><h2>Comment language</h2></div>
+        <div class="card-head">
+          <h2>Comment language</h2>
+        </div>
         <p class="muted">The interface stays in English; comments are written in the language you pick.</p>
         <select id="language" class="field select">
           <option>English</option>
@@ -107,7 +121,9 @@
       </div>
 
       <div class="card danger-card">
-        <div class="card-head"><h2>Reset</h2></div>
+        <div class="card-head">
+          <h2>Reset</h2>
+        </div>
         <p class="muted">Erase your profile, keys, preferences, and history from this browser.</p>
         <button class="btn btn-danger" id="reset-all">Clear all data</button>
       </div>
@@ -128,11 +144,13 @@
     <footer class="footer">
       <span>Notidem v2.0.0</span>
       <span>·</span>
-      <a href="https://github.com/paulpessoa/notidem/blob/main/docs/PRIVACY.md" target="_blank" rel="noopener" class="inline-link" id="privacy-link">Privacy</a>
+      <a href="https://github.com/paulpessoa/notidem/blob/main/docs/PRIVACY.md" target="_blank" rel="noopener" class="inline-link"
+        id="privacy-link">Privacy</a>
     </footer>
   </div>
 
   <script src="../../vendor/pdf.min.js"></script>
   <script type="module" src="options.js"></script>
 </body>
+
 </html>
