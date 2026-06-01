@@ -135,6 +135,26 @@
 
   // ---- Extract post text, author, and permalink ---------------------------
 
+  function findPostUrl(container) {
+    let el = container;
+    while (el && el !== document.body) {
+      if (el.getAttribute) {
+        const urn = el.getAttribute('data-urn') || el.getAttribute('data-id');
+        if (urn && urn.includes('urn:li:')) {
+          return `https://www.linkedin.com/feed/update/${urn}/`;
+        }
+      }
+      el = el.parentElement;
+    }
+    return pickHref(container, [
+      'a[href*="/feed/update/"]',
+      'a[href*="/posts/"]',
+      '.update-components-actor__meta a',
+      '.feed-shared-actor__meta a',
+      'a.app-aware-link',
+    ]) || location.href;
+  }
+
   function extractContext(editor) {
     // LinkedIn renders post text via React hydration and frequently renames its
     // classes, so we don't trust any single selector. Strategy:
@@ -170,11 +190,7 @@
     ]);
     if (!postAuthor) postAuthor = findAuthorNearEditor(editor);
 
-    const postUrl = pickHref(container, [
-      'a[href*="/feed/update/"]',
-      'a[href*="/posts/"]',
-      '.update-components-actor__meta a',
-    ]) || location.href;
+    const postUrl = findPostUrl(container);
 
     const result = { postText, postAuthor, postUrl };
     console.debug('[Notidem] detected context:', {
