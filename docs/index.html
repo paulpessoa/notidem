@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Notidem — the opposite of "idem"</title>
 <meta name="description" content="Open-source Chrome extension that helps you write genuine LinkedIn comments and replies in your own voice. You review and post everything. Bring your own AI key.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Notidem — Chrome Extension Demo",
+  "description": "See how Notidem helps you write genuine LinkedIn comments and message replies in your own voice, grounded in your profile, always reviewed by you before posting.",
+  "thumbnailUrl": "https://i.ytimg.com/vi/DzhSNTzGL8o/maxresdefault.jpg",
+  "uploadDate": "2025-01-01",
+  "embedUrl": "https://www.youtube.com/embed/DzhSNTzGL8o",
+  "url": "https://www.youtube.com/watch?v=DzhSNTzGL8o"
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -156,6 +168,40 @@
   .copy-confirm { font-size: 13px; color: var(--accent); font-weight: 600; opacity: 0; transition: opacity .3s; margin-left: 4px; }
   .copy-confirm.show { opacity: 1; }
 
+  /* Video facade */
+  .video-section { padding: 64px 0 0; }
+  .video-facade-wrap {
+    position: relative; width: 100%; max-width: 800px; margin: 32px auto 0;
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 8px 40px rgba(21,35,31,0.13);
+    background: #000; cursor: pointer;
+    aspect-ratio: 16/9;
+  }
+  .video-facade-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: opacity .25s;
+  }
+  .video-facade-wrap:hover img { opacity: 0.82; }
+  .play-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px; height: 72px; border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s ease, background .2s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.28);
+  }
+  .video-facade-wrap:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: #fff;
+  }
+  .play-btn svg { width: 28px; height: 28px; margin-left: 4px; fill: var(--accent-deep); }
+  .video-facade-wrap iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  }
+  .video-caption { text-align: center; margin-top: 14px; font-size: 13.5px; color: var(--ink-faint); }
+
   footer { padding: 50px 0 70px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 14px; }
   footer a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--line); }
   footer a:hover { color: var(--accent); }
@@ -233,6 +279,37 @@
         </p>
       </div>
     </div>
+  </div>
+
+  <!-- ===== VIDEO DEMO ===== -->
+  <div class="video-section">
+    <div class="sec-label" style="text-align:center">
+      <span data-en>Watch it in action</span><span data-pt>Veja em ação</span>
+    </div>
+    <div
+      id="yt-facade"
+      class="video-facade-wrap"
+      role="button"
+      tabindex="0"
+      aria-label="Play Notidem demo video"
+      onclick="loadYT()"
+      onkeydown="if(event.key==='Enter'||event.key===' ')loadYT()"
+    >
+      <img
+        src="https://i.ytimg.com/vi/DzhSNTzGL8o/maxresdefault.jpg"
+        alt="Notidem Chrome extension demo video thumbnail"
+        loading="lazy"
+        width="1280"
+        height="720"
+      >
+      <div class="play-btn" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <p class="video-caption">
+      <span data-en>2-minute walkthrough — from install to first reply.</span>
+      <span data-pt>Demonstração de 2 minutos — da instalação à primeira resposta.</span>
+    </p>
   </div>
 
   <section id="features">
@@ -461,6 +538,23 @@
       showCopied();
     }
   }
+  /* ---- YouTube facade ---- */
+  function loadYT() {
+    var wrap = document.getElementById('yt-facade');
+    if (!wrap) return;
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/DzhSNTzGL8o?autoplay=1&rel=0';
+    iframe.title = 'Notidem Chrome Extension Demo';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    // Remove thumbnail and play button, insert iframe
+    wrap.innerHTML = '';
+    wrap.appendChild(iframe);
+    wrap.style.cursor = 'default';
+    wrap.onclick = null;
+    wrap.onkeydown = null;
+  }
+
   function showCopied() {
     var el = document.getElementById('copy-confirm');
     el.classList.add('show');

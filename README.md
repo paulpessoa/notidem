@@ -10,6 +10,14 @@ Most people reply with "idem", "great post!", or "totally agree". Those replies 
 
 ---
 
+## Demo
+
+[![Watch the Notidem demo on YouTube](https://i.ytimg.com/vi/DzhSNTzGL8o/maxresdefault.jpg)](https://www.youtube.com/watch?v=DzhSNTzGL8o)
+
+*2-minute walkthrough — from install to first reply.*
+
+---
+
 ## What it does
 
 - **Comments on the feed.** Open any post, click the Notidem button by the comment box, pick a goal (add an insight, share an experience, ask a question, agree and build on it, or offer a respectful counter-point), and get a draft grounded in the post and in your profile.
