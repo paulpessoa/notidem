@@ -196,11 +196,20 @@
       <span data-pt>O Notidem ajuda você a escrever comentários e respostas genuínas no LinkedIn — na sua própria voz, com base no seu perfil, e sempre revisados por você antes de publicar.</span>
     </p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#install">
-        <span data-en>Download the extension</span><span data-pt>Baixar a extensão</span>
-      </a>
+      <!-- hero: shown when NOT installed -->
+      <div id="hero-cta-install" style="display:contents">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/eidmbbkdaelapnapieiglooellefjmld" target="_blank" rel="noopener">
+          <span data-en>Add to Chrome, free</span><span data-pt>Adicionar ao Chrome, grátis</span>
+        </a>
+      </div>
+      <!-- hero: shown when IS installed -->
+      <div id="hero-cta-installed" style="display:none">
+        <span class="installed-badge" id="hero-installed-label">
+          <span data-en>You have version 1.0 installed</span><span data-pt>Você tem a versão 1.0 instalada</span>
+        </span>
+      </div>
       <a class="btn btn-ghost" href="https://github.com/paulpessoa/notidem" target="_blank" rel="noopener">
-        <span data-en>View source on GitHub</span><span data-pt>Ver o código no GitHub</span>
+        <span data-en>View on GitHub</span><span data-pt>Ver no GitHub</span>
       </a>
     </div>
     <p class="note">
@@ -307,12 +316,22 @@
       <!-- Shown when extension is NOT detected -->
       <div id="cta-install">
         <a id="btn-webstore" class="btn btn-primary" href="https://chromewebstore.google.com/detail/eidmbbkdaelapnapieiglooellefjmld" target="_blank" rel="noopener">
-          <span data-en>Add to Chrome — it's free</span><span data-pt>Adicionar ao Chrome — é grátis</span>
+          <span data-en>Add to Chrome, free</span><span data-pt>Adicionar ao Chrome, grátis</span>
         </a>
-        <p style="margin-top:14px;font-size:13.5px;color:#c4d6cf;">
-          <span data-en>Or <a href="notidem-v1.0.zip" download style="color:#aee0d2">download the zip</a> and load it unpacked.</span>
-          <span data-pt>Ou <a href="notidem-v1.0.zip" download style="color:#aee0d2">baixe o zip</a> e carregue manualmente.</span>
+        <p style="margin-top:22px;font-size:13.5px;color:#c4d6cf;">
+          <span data-en>Prefer to install manually? Download and load the unpacked build:</span>
+          <span data-pt>Prefere instalar manualmente? Baixe e carregue o pacote diretamente:</span>
         </p>
+        <ol style="margin-top:12px;padding-left:22px;display:grid;gap:8px;color:#d6e2dd;font-size:14.5px;">
+          <li><span data-en>Download and unzip the build below.</span><span data-pt>Baixe e descompacte o arquivo abaixo.</span></li>
+          <li><span data-en>Open </span><span data-pt>Abra </span><code style="background:rgba(255,255,255,0.12);padding:2px 7px;border-radius:4px;font-size:13px;">chrome://extensions</code>.</li>
+          <li><span data-en>Turn on <strong>Developer mode</strong>.</span><span data-pt>Ative o <strong>Modo de desenvolvedor</strong>.</span></li>
+          <li><span data-en>Click <strong>Load unpacked</strong> and select the unzipped folder.</span><span data-pt>Clique em <strong>Load unpacked</strong> e selecione a pasta descompactada.</span></li>
+          <li><span data-en>Open Settings, add your AI key and a short profile, then go to LinkedIn.</span><span data-pt>Abra as Configurações, adicione sua chave de IA e um perfil curto, e vá ao LinkedIn.</span></li>
+        </ol>
+        <a class="btn btn-primary" href="notidem-v1.0.zip" download style="margin-top:20px;">
+          <span data-en>Download Notidem v1.0</span><span data-pt>Baixar Notidem v1.0</span>
+        </a>
       </div>
 
       <!-- Shown when extension IS detected -->
@@ -417,13 +436,17 @@
   })();
 
   function markInstalled(version) {
+    // install section
     document.getElementById('cta-install').style.display = 'none';
     document.getElementById('cta-installed').style.display = 'block';
-    // Update the label to show actual version
-    var labels = document.querySelectorAll('#installed-label [data-en]');
-    if (labels[0]) labels[0].textContent = 'You already have version ' + version + ' installed ✓';
-    var labelspt = document.querySelectorAll('#installed-label [data-pt]');
-    if (labelspt[0]) labelspt[0].textContent = 'Você já tem a versão ' + version + ' instalada ✓';
+    // hero section
+    document.getElementById('hero-cta-install').style.display = 'none';
+    document.getElementById('hero-cta-installed').style.display = 'flex';
+    // update version labels
+    var labels = document.querySelectorAll('#installed-label [data-en], #hero-installed-label [data-en]');
+    labels.forEach(function(el) { el.textContent = 'You have version ' + version + ' installed'; });
+    var labelspt = document.querySelectorAll('#installed-label [data-pt], #hero-installed-label [data-pt]');
+    labelspt.forEach(function(el) { el.textContent = 'Voc\u00ea tem a vers\u00e3o ' + version + ' instalada'; });
   }
 
   /* ---- Copy link ---- */
