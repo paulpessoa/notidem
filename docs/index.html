@@ -140,6 +140,21 @@
   .install-box .btn-primary { margin-top: 28px; background: var(--white); color: var(--accent-deep); }
   .install-box .btn-primary:hover { background: #e9e4d6; }
   .badge { display: inline-block; margin-bottom: 18px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #aee0d2; border: 1px solid rgba(174,224,210,0.4); padding: 5px 12px; border-radius: 999px; }
+  .installed-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; background: rgba(174,224,210,0.15); border: 1px solid rgba(174,224,210,0.4); border-radius: 999px; padding: 10px 20px; font-size: 14.5px; font-weight: 600; color: #aee0d2; }
+  .installed-badge::before { content: '✓'; font-size: 16px; }
+
+  /* share section */
+  .share-box { margin-top: 36px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-start; justify-content: space-between; }
+  .share-box .share-left { flex: 1 1 260px; }
+  .share-box .share-left h3 { font-family: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .share-box .share-left p { color: var(--ink-soft); font-size: 15px; max-width: 46ch; }
+  .share-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 4px; }
+  .btn-share { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; font-family: var(--body); text-decoration: none; transition: background .15s, transform .15s; }
+  .btn-share:hover { background: var(--paper-2); transform: translateY(-1px); }
+  .btn-share.accent { background: var(--accent); color: var(--white); border-color: transparent; }
+  .btn-share.accent:hover { background: var(--accent-deep); }
+  .copy-confirm { font-size: 13px; color: var(--accent); font-weight: 600; opacity: 0; transition: opacity .3s; margin-left: 4px; }
+  .copy-confirm.show { opacity: 1; }
 
   footer { padding: 50px 0 70px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 14px; }
   footer a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--line); }
@@ -285,19 +300,51 @@
 
   <section id="install">
     <div class="install-box">
-      <span class="badge"><span data-en>Pending Chrome Web Store review</span><span data-pt>Em análise na Chrome Web Store</span></span>
+      <span class="badge"><span data-en>Available on Chrome Web Store</span><span data-pt>Disponível na Chrome Web Store</span></span>
       <h2><span data-en>Install it now</span><span data-pt>Instale agora</span></h2>
-      <p class="sec-intro"><span data-en>Until the store approves it, load the packaged build directly. It takes a minute.</span><span data-pt>Até a loja aprovar, carregue o pacote diretamente. Leva um minuto.</span></p>
-      <ol>
-        <li><span data-en>Download and unzip the latest build.</span><span data-pt>Baixe e descompacte a versão mais recente.</span></li>
-        <li><span data-en>Open </span><span data-pt>Abra </span><code>chrome://extensions</code>.</li>
-        <li><span data-en>Turn on </span><span data-pt>Ative o </span><strong><span data-en>Developer mode</span><span data-pt>Modo de desenvolvedor</span></strong>.</li>
-        <li><span data-en>Click </span><span data-pt>Clique em </span><strong>Load unpacked</strong> <span data-en>and pick the unzipped folder.</span><span data-pt>e selecione a pasta descompactada.</span></li>
-        <li><span data-en>Open Settings, add your AI key and a short profile, then go to LinkedIn.</span><span data-pt>Abra as Configurações, adicione sua chave de IA e um perfil curto, e vá para o LinkedIn.</span></li>
-      </ol>
-      <a class="btn btn-primary" href="notidem-v1.0.zip" download>
-        <span data-en>Download Notidem v1.0</span><span data-pt>Baixar Notidem v1.0</span>
-      </a>
+      <p class="sec-intro"><span data-en>One click from the Chrome Web Store. Free, open-source, no account needed.</span><span data-pt>Um clique na Chrome Web Store. Gratuito, código aberto, sem necessidade de conta.</span></p>
+
+      <!-- Shown when extension is NOT detected -->
+      <div id="cta-install">
+        <a id="btn-webstore" class="btn btn-primary" href="https://chromewebstore.google.com/detail/eidmbbkdaelapnapieiglooellefjmld" target="_blank" rel="noopener">
+          <span data-en>Add to Chrome — it's free</span><span data-pt>Adicionar ao Chrome — é grátis</span>
+        </a>
+        <p style="margin-top:14px;font-size:13.5px;color:#c4d6cf;">
+          <span data-en>Or <a href="notidem-v1.0.zip" download style="color:#aee0d2">download the zip</a> and load it unpacked.</span>
+          <span data-pt>Ou <a href="notidem-v1.0.zip" download style="color:#aee0d2">baixe o zip</a> e carregue manualmente.</span>
+        </p>
+      </div>
+
+      <!-- Shown when extension IS detected -->
+      <div id="cta-installed" style="display:none">
+        <span class="installed-badge" id="installed-label">
+          <span data-en>You already have version 1.0 installed</span><span data-pt>Você já tem a versão 1.0 instalada</span>
+        </span>
+        <p style="margin-top:14px;font-size:13.5px;color:#c4d6cf;">
+          <span data-en>All good! Open LinkedIn and look for the Notidem button next to the comment box.</span>
+          <span data-pt>Tudo certo! Abra o LinkedIn e procure o botão do Notidem ao lado da caixa de comentários.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="share">
+    <div class="share-box">
+      <div class="share-left">
+        <h3><span data-en>Like it? Tell someone.</span><span data-pt>Gostou? Conta pra alguém.</span></h3>
+        <p><span data-en>Share Notidem with a friend or leave a quick review on the Chrome Web Store — it helps a lot.</span><span data-pt>Compartilhe o Notidem com alguém ou deixe uma avaliação rápida na Chrome Web Store — isso ajuda muito.</span></p>
+      </div>
+      <div class="share-actions">
+        <button id="btn-copy" class="btn-share" onclick="copyLink()">
+          <span data-en>📋 Copy link</span><span data-pt>📋 Copiar link</span>
+        </button>
+        <span class="copy-confirm" id="copy-confirm"><span data-en>Copied!</span><span data-pt>Copiado!</span></span>
+        <a class="btn-share" href="https://twitter.com/intent/tweet?text=Just+found+Notidem+%E2%80%94+open-source+Chrome+extension+that+helps+you+write+genuine+LinkedIn+replies+in+your+own+voice.+You+always+review+before+posting.+%F0%9F%92%AC&url=https%3A%2F%2Fpaulpessoa.github.io%2Fnotidem%2F" target="_blank" rel="noopener">𝕏 Share</a>
+        <a class="btn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fpaulpessoa.github.io%2Fnotidem%2F" target="_blank" rel="noopener">in Share</a>
+        <a class="btn-share accent" href="https://chromewebstore.google.com/detail/eidmbbkdaelapnapieiglooellefjmld/reviews" target="_blank" rel="noopener">
+          <span data-en>⭐ Leave a review</span><span data-pt>⭐ Deixar avaliação</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -320,6 +367,7 @@
 </div>
 
 <script>
+  /* ---- Language ---- */
   function setLang(l) {
     document.body.setAttribute('data-lang', l);
     document.documentElement.lang = l;
@@ -333,6 +381,68 @@
     if (!saved) saved = (navigator.language || 'en').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
     setLang(saved);
   })();
+
+  /* ---- Extension detection ---- */
+  // The extension exposes a custom attribute on <html> when it loads.
+  // We poll briefly at page-load to catch it; falls back gracefully if not present.
+  (function detectExtension() {
+    var EXT_ID = 'eidmbbkdaelapnapieiglooellefjmld';
+    var VERSION = '1.0.0';
+    var found = false;
+
+    // Method 1: chrome.runtime.sendMessage (works in Chrome when extension is installed)
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+      try {
+        chrome.runtime.sendMessage(EXT_ID, { type: 'PING' }, function (resp) {
+          if (chrome.runtime.lastError) return; // not installed
+          if (resp && resp.version) VERSION = resp.version;
+          markInstalled(VERSION);
+          found = true;
+        });
+      } catch (e) {}
+    }
+
+    // Method 2: check for a custom attribute the content script could set
+    // (content script on this page would need to set data-notidem-installed on <html>)
+    var attr = document.documentElement.getAttribute('data-notidem-version');
+    if (attr) { markInstalled(attr); found = true; }
+
+    // Fallback check after short delay (content script may run slightly late)
+    if (!found) {
+      setTimeout(function() {
+        var attr2 = document.documentElement.getAttribute('data-notidem-version');
+        if (attr2) markInstalled(attr2);
+      }, 800);
+    }
+  })();
+
+  function markInstalled(version) {
+    document.getElementById('cta-install').style.display = 'none';
+    document.getElementById('cta-installed').style.display = 'block';
+    // Update the label to show actual version
+    var labels = document.querySelectorAll('#installed-label [data-en]');
+    if (labels[0]) labels[0].textContent = 'You already have version ' + version + ' installed ✓';
+    var labelspt = document.querySelectorAll('#installed-label [data-pt]');
+    if (labelspt[0]) labelspt[0].textContent = 'Você já tem a versão ' + version + ' instalada ✓';
+  }
+
+  /* ---- Copy link ---- */
+  function copyLink() {
+    var url = 'https://paulpessoa.github.io/notidem/';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(showCopied);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      showCopied();
+    }
+  }
+  function showCopied() {
+    var el = document.getElementById('copy-confirm');
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 2000);
+  }
 </script>
 </body>
 </html>
