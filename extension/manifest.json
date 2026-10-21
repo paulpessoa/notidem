@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Notidem — thoughtful replies for LinkedIn",
-  "version": "1.0.0",
-  "description": "The opposite of 'idem'. Draft genuine, on-brand LinkedIn comments and replies in your own voice, always reviewed by you.",
+  "name": "Notidem — thoughtful replies for LinkedIn & X",
+  "version": "2.0.0",
+  "description": "The opposite of 'idem'. Draft genuine replies on LinkedIn and X in your own voice, with your context. Always reviewed by you.",
   "icons": {
     "16": "assets/icons/icon16.png",
     "32": "assets/icons/icon32.png",
@@ -10,10 +10,12 @@
     "128": "assets/icons/icon128.png"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "activeTab",
+    "scripting"
   ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://api.groq.com https://api.openai.com https://generativelanguage.googleapis.com https://api.anthropic.com"
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://api.groq.com https://api.openai.com https://generativelanguage.googleapis.com https://api.anthropic.com https://www.google-analytics.com"
   },
   "host_permissions": [
     "https://api.groq.com/*",
@@ -27,14 +29,22 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://www.linkedin.com/*"
-      ],
+      "matches": ["https://www.linkedin.com/*"],
       "js": [
-        "src/content.js"
+        "src/content/registry.js",
+        "src/content/ui-styles.js",
+        "src/content/platforms/linkedin.js",
+        "src/content/core.js"
       ],
-      "css": [
-        "src/ui/content.css"
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*", "https://mobile.x.com/*", "https://mobile.twitter.com/*"],
+      "js": [
+        "src/content/registry.js",
+        "src/content/ui-styles.js",
+        "src/content/platforms/x.js",
+        "src/content/core.js"
       ],
       "run_at": "document_idle"
     }
@@ -48,15 +58,5 @@
       "48": "assets/icons/icon48.png"
     }
   },
-  "options_page": "src/ui/options.html",
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "vendor/pdf.worker.min.js"
-      ],
-      "matches": [
-        "https://www.linkedin.com/*"
-      ]
-    }
-  ]
+  "options_page": "src/ui/options.html"
 }
