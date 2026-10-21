@@ -49,8 +49,10 @@ async function callGemini(apiKey, system, user, model) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: `${system}\n\n${user}` }] }],
-      generationConfig: { maxOutputTokens: 320, temperature: 0.7 },
+      systemInstruction: { parts: [{ text: system }] },
+      contents: [{ role: 'user', parts: [{ text: user }] }],
+      // thinkingBudget 0: 2.5 models otherwise spend the output budget "thinking".
+      generationConfig: { maxOutputTokens: 400, temperature: 0.7, thinkingConfig: { thinkingBudget: 0 } },
     }),
   });
   if (!res.ok) throw await parseError(res, 'Request failed');
