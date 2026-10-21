@@ -4,22 +4,31 @@ Notidem's direction, roughly in order. Nothing here is a promise of dates — it
 
 ## Shipped
 
-- AI-drafted **comments** on the LinkedIn feed, with selectable goals, length, and a free-text instruction.
-- AI-drafted **message replies** that read the visible conversation and stay in context.
-- Bring-your-own-key for OpenAI, Anthropic, Gemini, and Groq.
+### v2.0
+- LinkedIn-style redesign with dark mode, for the popup, settings and in-page panel.
+- **X / Twitter (beta):** in-page replies with a 280-character counter.
+- **Quick draft** in the popup, on any site, reading your selection only when you click.
+- Richer context: profile, up to 8 context files (PDF/TXT/MD), portfolio links, "What the AI sees" and a context-strength meter.
+- Voice editor: tone presets, style, phrases to avoid, emoji policy, writing samples.
+- History search/filter/export, profile export/import (without keys), "Auto" language.
+- "Coming soon" networks with an "I want this" vote button (Instagram, Facebook, Reddit, YouTube, Threads, Bluesky, TikTok).
+- Optional anonymous analytics (GA4), built but disabled until configured. See [`ANALYTICS.md`](ANALYTICS.md).
+
+### v1.x
+- AI-drafted comments and message replies on LinkedIn, with goals, length and free-text instruction.
+- Bring-your-own-key for OpenAI, Anthropic, Gemini and Groq.
 - At-rest key encryption (AES-GCM), strict CSP, minimal permissions, one-click erase.
-- Résumé/profile context so drafts sound like you.
 
 ## Next
 
+### In-page button for the most-voted networks
+Votes decide the order. The network with the most "I want this" clicks gets a full in-page button next, moving from "Coming soon" to beta.
+
 ### Per-context profiles
-LinkedIn isn't one audience. The same person is a **candidate** in one chat, a **recruiter** in another, in **sales** in a third, and **networking** in a fourth. Notidem will let you keep distinct profiles and tones per context and switch between them, so a recruiter outreach and a job application don't sound the same.
+The same person is a **candidate** in one chat, a **recruiter** in another, in **sales** in a third. Notidem will let you keep distinct profiles and voices per context and switch between them.
 
 ### Optional hosted AI (opt-in credits)
-For people who don't want to manage an API key at all, an optional hosted mode: you sign in, buy credits, and the AI key lives on a server — never in your browser. This also removes the only real key-exposure risk for those users. The bring-your-own-key path stays free and open forever; hosted is a convenience, not a paywall around the core.
-
-### More languages and tone presets
-Beyond the current language setting, curated tone presets (warm, concise, formal, playful) and broader language coverage.
+For people who don't want to manage an API key, an optional hosted mode where the key lives on a server, never in your browser. The bring-your-own-key path stays free and open forever; hosted is a convenience, not a paywall around the core.
 
 ## Principles that won't change
 
