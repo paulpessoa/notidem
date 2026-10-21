@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>X fixture</title></head>
+<body style="background:#000;color:#fff;font-family:sans-serif">
+<main style="width:600px;margin:auto">
+<article data-testid="tweet" style="padding:16px">
+  <div data-testid="User-Name"><span>Sam Lee</span><br><span>@samlee</span></div>
+  <div data-testid="tweetText">Hot take: most design systems fail because nobody owns adoption, not because the components are bad.</div>
+  <a href="https://x.com/samlee/status/123">time</a>
+</article>
+<div style="padding:16px">
+  <div class="DraftEditor-root"><div data-testid="tweetTextarea_0" contenteditable="true" role="textbox" style="min-height:24px;border:1px solid #333"></div></div>
+  <div data-testid="toolBar" style="display:flex;justify-content:space-between"><div data-testid="ScrollSnap-List" style="display:flex;gap:4px"><button>img</button></div><button>Reply</button></div>
+</div>
+</main>
+<script>
+document.querySelector('[data-testid="tweetTextarea_0"]').addEventListener('paste', (e) => {
+  e.preventDefault();
+  e.target.textContent += e.clipboardData.getData('text/plain');
+});
+</script>
+</body></html>

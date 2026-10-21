@@ -8,35 +8,59 @@
 </head>
 <body>
   <header class="pp-head">
-    <div class="pp-brand">
-      <img src="../../assets/icons/icon32.png" alt="" width="22" height="22" />
-      <span>Notidem</span>
-    </div>
-    <button class="pp-gear" id="open-options" title="Settings" aria-label="Settings">⚙</button>
+    <div class="pp-brand"><span class="logo sm">N</span><span>Notidem</span></div>
+    <button class="pp-icon" id="open-history" title="History" aria-label="History">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    </button>
+    <button class="pp-icon" id="open-options" title="Settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+    </button>
   </header>
 
   <main class="pp-body">
-    <div class="pp-context" id="context">
-      <span class="pp-context-label">Detecting post…</span>
-    </div>
+    <!-- Where am I? -->
+    <section class="pp-site" id="site"></section>
 
-    <div class="pp-row">
-      <label for="provider">Model</label>
-      <select id="provider" class="pp-select"></select>
-    </div>
+    <!-- Setup nudge -->
+    <section class="pp-setup" id="setup" hidden></section>
 
-    <div class="pp-output" id="output" data-state="idle">
-      <p class="pp-placeholder">Open a LinkedIn post, then generate a draft here.</p>
-    </div>
+    <!-- Quick draft: works on any site -->
+    <section class="pp-card">
+      <div class="pp-label-row">
+        <label class="pp-label" for="source">Replying to</label>
+        <button class="pp-link" id="use-selection" type="button">Use selected text</button>
+      </div>
+      <textarea id="source" class="textarea pp-source" rows="4" placeholder="Paste or select the post you're replying to…"></textarea>
 
-    <div class="pp-actions">
-      <button class="btn btn-primary pp-generate" id="generate">Generate</button>
-      <button class="btn btn-ghost pp-regen" id="regenerate" disabled>↻</button>
-      <button class="btn btn-go pp-copy" id="copy" disabled>Copy</button>
-    </div>
-    <p class="pp-status" id="status" aria-live="polite"></p>
+      <div class="pp-controls">
+        <select id="goal" class="select" aria-label="Goal"></select>
+        <div class="seg" id="length" role="group" aria-label="Length">
+          <button type="button" data-value="short">S</button>
+          <button type="button" data-value="medium" aria-pressed="true">M</button>
+          <button type="button" data-value="long">L</button>
+        </div>
+      </div>
+
+      <div class="pp-output" id="output" data-state="idle" hidden></div>
+
+      <div class="pp-actions">
+        <button class="btn btn-primary pp-grow" id="generate" type="button">Generate draft</button>
+        <button class="btn btn-muted" id="copy" type="button" hidden>Copy</button>
+      </div>
+      <p class="pp-status" id="status" aria-live="polite"></p>
+    </section>
+
+    <!-- Other networks -->
+    <section class="pp-more">
+      <div class="pp-label-row">
+        <span class="pp-label">In-page button</span>
+        <a href="#" class="pp-link" id="open-networks">All networks →</a>
+      </div>
+      <div class="pp-glyphs" id="glyphs"></div>
+    </section>
   </main>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script type="module" src="popup.js"></script>
 </body>
 </html>
