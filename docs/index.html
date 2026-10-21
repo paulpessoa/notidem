@@ -251,7 +251,7 @@
       <!-- hero: shown when IS installed -->
       <div id="hero-cta-installed" style="display:none">
         <span class="installed-badge" id="hero-installed-label">
-          <span data-en>You have version 1.0 installed</span><span data-pt>Você tem a versão 1.0 instalada</span>
+          <span data-en>You have version 2.0 installed</span><span data-pt>Você tem a versão 2.0 instalada</span>
         </span>
       </div>
       <a class="btn btn-ghost" href="https://github.com/paulpessoa/notidem" target="_blank" rel="noopener">
@@ -406,15 +406,15 @@
           <li><span data-en>Click <strong>Load unpacked</strong> and select the unzipped folder.</span><span data-pt>Clique em <strong>Load unpacked</strong> e selecione a pasta descompactada.</span></li>
           <li><span data-en>Open Settings, add your AI key and a short profile, then go to LinkedIn.</span><span data-pt>Abra as Configurações, adicione sua chave de IA e um perfil curto, e vá ao LinkedIn.</span></li>
         </ol>
-        <a class="btn btn-primary" href="notidem-v1.0.zip" download style="margin-top:20px;">
-          <span data-en>Download Notidem v1.0</span><span data-pt>Baixar Notidem v1.0</span>
+        <a class="btn btn-primary" href="notidem-v2.0.zip" download style="margin-top:20px;">
+          <span data-en>Download Notidem v2.0</span><span data-pt>Baixar Notidem v2.0</span>
         </a>
       </div>
 
       <!-- Shown when extension IS detected -->
       <div id="cta-installed" style="display:none">
         <span class="installed-badge" id="installed-label">
-          <span data-en>You already have version 1.0 installed</span><span data-pt>Você já tem a versão 1.0 instalada</span>
+          <span data-en>You already have version 2.0 installed</span><span data-pt>Você já tem a versão 2.0 instalada</span>
         </span>
         <p style="margin-top:14px;font-size:13.5px;color:#c4d6cf;">
           <span data-en>All good! Open LinkedIn and look for the Notidem button next to the comment box.</span>
@@ -483,7 +483,7 @@
   // We poll briefly at page-load to catch it; falls back gracefully if not present.
   (function detectExtension() {
     var EXT_ID = 'eidmbbkdaelapnapieiglooellefjmld';
-    var VERSION = '1.0.0';
+    var VERSION = '2.0.0';
     var found = false;
 
     // Method 1: chrome.runtime.sendMessage (works in Chrome when extension is installed)

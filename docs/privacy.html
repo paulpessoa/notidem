@@ -78,7 +78,7 @@
   <div class="hero">
     <div class="eyebrow"><span data-en>Privacy Policy</span><span data-pt>Política de Privacidade</span></div>
     <h1><span data-en>Your data stays with you</span><span data-pt>Seus dados ficam com você</span></h1>
-    <p class="updated"><span data-en>Last updated: 2026</span><span data-pt>Última atualização: 2026</span></p>
+    <p class="updated"><span data-en>Last updated: October 2026</span><span data-pt>Última atualização: outubro de 2026</span></p>
   </div>
 
   <section>
@@ -87,7 +87,8 @@
       <li><span data-en>There is <strong>no Notidem server</strong>. We do not run a backend that receives your data.</span><span data-pt>Não existe <strong>servidor do Notidem</strong>. Não operamos backend que receba seus dados.</span></li>
       <li><span data-en>Your API key, profile, and draft history are stored <strong>only on your device</strong>, in the browser's local storage.</span><span data-pt>Sua chave de API, perfil e histórico de rascunhos ficam <strong>apenas no seu dispositivo</strong>, no armazenamento local do navegador.</span></li>
       <li><span data-en>When you click Generate, the text you reply to is sent <strong>directly to the AI provider you chose</strong>, using your own key, over HTTPS.</span><span data-pt>Ao clicar em Generate, o texto ao qual você responde é enviado <strong>diretamente ao provedor de IA escolhido</strong>, usando sua própria chave, via HTTPS.</span></li>
-      <li><span data-en>We never see, collect, transmit, or store your key, your text, your drafts, or your LinkedIn data.</span><span data-pt>Nunca vemos, coletamos, transmitimos ou armazenamos sua chave, seu texto, seus rascunhos ou seus dados do LinkedIn.</span></li>
+      <li><span data-en>We never see, collect, transmit, or store your key, your text, your drafts, your profile, or your LinkedIn / X data.</span><span data-pt>Nunca vemos, coletamos, transmitimos ou armazenamos sua chave, seu texto, seus rascunhos, seu perfil ou seus dados do LinkedIn / X.</span></li>
+      <li><span data-en>Anonymous usage statistics are <strong>disabled in this build</strong>. See the section below.</span><span data-pt>As estatísticas anônimas de uso estão <strong>desativadas nesta versão</strong>. Veja a seção abaixo.</span></li>
     </ul>
   </section>
 
@@ -108,13 +109,23 @@
           <td><span data-en>Only inside the request to the provider</span><span data-pt>Apenas dentro da requisição ao provedor</span></td>
         </tr>
         <tr>
-          <td><span data-en>Your profile / résumé text</span><span data-pt>Seu perfil / texto do currículo</span></td>
+          <td><span data-en>Your profile, voice settings and writing samples</span><span data-pt>Seu perfil, configurações de voz e exemplos de escrita</span></td>
           <td><span data-en>Local storage</span><span data-pt>Armazenamento local</span></td>
           <td><span data-en>Only as context in a generation request</span><span data-pt>Apenas como contexto numa requisição</span></td>
         </tr>
         <tr>
-          <td><span data-en>Post text or conversation</span><span data-pt>Texto do post ou conversa</span></td>
+          <td><span data-en>Context files (PDF, TXT, MD) and portfolio links</span><span data-pt>Arquivos de contexto (PDF, TXT, MD) e links de portfólio</span></td>
+          <td><span data-en>Local storage; only enabled ones are used</span><span data-pt>Armazenamento local; só os ativados são usados</span></td>
+          <td><span data-en>Only as context in a generation request (links are never fetched)</span><span data-pt>Apenas como contexto numa requisição (links nunca são acessados)</span></td>
+        </tr>
+        <tr>
+          <td><span data-en>Post text or conversation (LinkedIn, X)</span><span data-pt>Texto do post ou conversa (LinkedIn, X)</span></td>
           <td><span data-en>Read transiently from the page</span><span data-pt>Lido transitoriamente da página</span></td>
+          <td><span data-en>Only inside a generation request</span><span data-pt>Apenas dentro de uma requisição</span></td>
+        </tr>
+        <tr>
+          <td><span data-en>Quick draft: your text selection on any site</span><span data-pt>Rascunho rápido: seu texto selecionado em qualquer site</span></td>
+          <td><span data-en>Read once, when you click in the popup (activeTab)</span><span data-pt>Lido uma vez, quando você clica no popup (activeTab)</span></td>
           <td><span data-en>Only inside a generation request</span><span data-pt>Apenas dentro de uma requisição</span></td>
         </tr>
         <tr>
@@ -124,6 +135,18 @@
         </tr>
       </tbody>
     </table>
+  </section>
+
+  <section id="anonymous-usage-statistics">
+    <h2><span data-en>Anonymous usage statistics</span><span data-pt>Estatísticas anônimas de uso</span></h2>
+    <p><span data-en>Disabled in this build. The extension ships with no analytics ID or secret, so it sends nothing to any analytics service. If a future version enables it, this is how it works:</span><span data-pt>Desativadas nesta versão. A extensão não traz ID nem segredo de analytics, então não envia nada a nenhum serviço de estatísticas. Se uma versão futura ativar, funciona assim:</span></p>
+    <ul>
+      <li><span data-en><strong>Network votes.</strong> The "I want this" button on a "Coming soon" network sends one event with the network name and where you clicked (popup or settings). The button is labelled as sending 1 anonymous click.</span><span data-pt><strong>Votos de redes.</strong> O botão "I want this" em uma rede "Em breve" envia um evento com o nome da rede e onde você clicou (popup ou configurações). O botão informa que envia 1 clique anônimo.</span></li>
+      <li><span data-en><strong>Usage statistics, opt-in only.</strong> Other events (install, update, panel opened, draft generated, error, draft used) are sent only if you turn on "Share anonymous usage stats" in Settings. It is off by default.</span><span data-pt><strong>Estatísticas de uso, só com opt-in.</strong> Outros eventos (instalação, atualização, painel aberto, rascunho gerado, erro, rascunho usado) só são enviados se você ativar "Share anonymous usage stats" nas configurações. Vem desativado por padrão.</span></li>
+      <li><span data-en><strong>What is in an event:</strong> a random install ID (not linked to you or your accounts), the extension version, and a few allow-listed values such as network, mode, goal, length, provider and status.</span><span data-pt><strong>O que há em um evento:</strong> um ID de instalação aleatório (não ligado a você nem às suas contas), a versão da extensão e poucos valores de uma lista permitida, como rede, modo, objetivo, tamanho, provedor e status.</span></li>
+      <li><span data-en><strong>Never sent:</strong> post text, drafts, your profile or files, URLs, names, API keys.</span><span data-pt><strong>Nunca enviados:</strong> texto de posts, rascunhos, seu perfil ou arquivos, URLs, nomes, chaves de API.</span></li>
+      <li><span data-en><strong>Provider:</strong> Google Analytics 4 (Measurement Protocol); Google's own terms apply to that data. Votes are also counted locally in your browser.</span><span data-pt><strong>Provedor:</strong> Google Analytics 4 (Measurement Protocol); valem os termos do Google para esses dados. Os votos também são contados localmente no seu navegador.</span></li>
+    </ul>
   </section>
 
   <section>
@@ -143,8 +166,8 @@
     <p><span data-en>Because all data is local and under your control, you can exercise your rights directly:</span><span data-pt>Como todos os dados são locais e estão sob seu controle, você exerce seus direitos diretamente:</span></p>
     <ul>
       <li><span data-en><strong>Access / portability:</strong> your data is in your browser's local storage.</span><span data-pt><strong>Acesso / portabilidade:</strong> seus dados estão no armazenamento local do navegador.</span></li>
-      <li><span data-en><strong>Erasure:</strong> use "Forget my keys" to remove keys, or "Clear all data" to remove everything.</span><span data-pt><strong>Exclusão:</strong> use "Forget my keys" para remover chaves, ou "Clear all data" para remover tudo.</span></li>
-      <li><span data-en><strong>Withdraw consent:</strong> stop using Generate, or remove the extension.</span><span data-pt><strong>Retirar consentimento:</strong> pare de usar o Generate, ou remova a extensão.</span></li>
+      <li><span data-en><strong>Erasure:</strong> use "Forget my keys" to remove keys, or "Clear all data" to remove everything (profile, context files, keys, history). You can also export your profile without keys.</span><span data-pt><strong>Exclusão:</strong> use "Forget my keys" para remover chaves, ou "Clear all data" para remover tudo (perfil, arquivos de contexto, chaves, histórico). Você também pode exportar seu perfil sem as chaves.</span></li>
+      <li><span data-en><strong>Withdraw consent:</strong> stop using Generate, turn off "Share anonymous usage stats", or remove the extension.</span><span data-pt><strong>Retirar consentimento:</strong> pare de usar o Generate, desative "Share anonymous usage stats" ou remova a extensão.</span></li>
     </ul>
   </section>
 
@@ -157,7 +180,7 @@
     <h2><span data-en>Contact</span><span data-pt>Contato</span></h2>
     <p><span data-en>For privacy questions, open an issue on the project repository.</span><span data-pt>Para dúvidas sobre privacidade, abra uma issue no repositório do projeto.</span></p>
     <div class="callout">
-      <p><span data-en>Notidem is an independent, unofficial project and is not affiliated with or endorsed by LinkedIn. "LinkedIn" is a trademark of its respective owner.</span><span data-pt>O Notidem é um projeto independente e não oficial, sem vínculo com o LinkedIn nem endosso dele. "LinkedIn" é marca registrada de seu respectivo dono.</span></p>
+      <p><span data-en>Notidem is an independent, unofficial project and is not affiliated with or endorsed by LinkedIn, X or any other network. Their names are trademarks of their respective owners.</span><span data-pt>O Notidem é um projeto independente e não oficial, sem vínculo com LinkedIn, X ou qualquer outra rede, nem endosso deles. Os nomes são marcas registradas de seus respectivos donos.</span></p>
     </div>
   </section>
 

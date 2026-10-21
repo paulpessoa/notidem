@@ -46,4 +46,4 @@ unchecked item in the checklist of HANDOFF.md, commit in small focused commits a
 - [x] popup redesign (quick draft works on any site)
 - [x] manifest 2.0.0, build script, zip
 - [x] smoke tests in headless Chromium
-- [ ] docs PR
+- [x] docs PR
