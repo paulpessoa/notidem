@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>LinkedIn fixture</title>
+<style>body{background:#f4f2ee;font-family:sans-serif}.feed-shared-update-v2{background:#fff;width:560px;margin:40px auto;padding:16px;border-radius:8px}</style></head>
+<body>
+<div class="feed-shared-update-v2" data-urn="urn:li:activity:7000000000000000001">
+  <div class="update-components-actor__title"><span aria-hidden="true">Jane Doe</span></div>
+  <div class="update-components-text"><span dir="ltr">We cut our CI time from 40 to 8 minutes by caching dependencies and splitting tests by timing data. The biggest win was not the tooling but deleting flaky tests nobody owned.</span></div>
+  <div class="comments-comment-box"><form class="comments-comment-texteditor">
+    <div class="ql-container"><div class="ql-editor" contenteditable="true" aria-label="Add a comment…"></div></div>
+  </form></div>
+</div>
+<script>
+// Minimal stand-in for Quill: accept paste events like the real editor does.
+document.querySelector('.ql-editor').addEventListener('paste', (e) => {
+  e.preventDefault();
+  e.target.textContent += e.clipboardData.getData('text/plain');
+});
+</script>
+</body></html>
