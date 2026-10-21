@@ -7,7 +7,7 @@ This document describes Notidem's security model honestly — including its limi
 | Layer | Protection |
 |---|---|
 | Another extension reading your storage | Not possible. `chrome.storage.local` is isolated per extension by the browser. |
-| The LinkedIn page (or third-party scripts on it) | Cannot reach the key. All key handling happens in the isolated background worker; the key is never injected into the page. |
+| The LinkedIn or X page (or third-party scripts on it) | Cannot reach the key. All key handling happens in the isolated background worker; the key is never injected into the page. |
 | Casual/offline access to the storage file or a backup | The key is encrypted at rest (AES-GCM), so it is not readable as plain text. |
 | Malware already running as your user | Not solvable by any browser extension. To *use* a key, it must be decrypted in the browser, so an active attacker on your machine can reach it. |
 
@@ -18,7 +18,7 @@ This document describes Notidem's security model honestly — including its limi
 3. **Local only** — stored in `chrome.storage.local`, never `chrome.storage.sync`, so it is never uploaded to the cloud.
 4. **Never logged** — the key is never written to the console or any log.
 5. **Strict Content Security Policy** in the manifest blocks remote code execution.
-6. **Minimal permissions** — only `storage` plus the four AI provider hosts.
+6. **Minimal permissions** — `storage`, `activeTab`, `scripting`, the four AI provider hosts, and content scripts on LinkedIn and X only. No `web_accessible_resources`.
 7. **One-click erase** — "Forget my keys" and "Clear all data".
 
 ## Honest limitation
